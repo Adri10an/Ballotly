@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circunscripciones del Principado de Asturias</title>
+
+<link rel="stylesheet" href="../../css/asturias/provincial_asturias.css">
+</head>
+<body>
+<h1>Selecciona una circunscripción</h1>
+<div class="container">
+    <div class="boton-con-texto"><span class="provincia-label-overlay">Occidente</span><button class="button occidente" onclick="abrirVentana('Occidente')"></button></div>
+    <div class="boton-con-texto"><span class="provincia-label-overlay">Centro</span><button class="button centro" onclick="abrirVentana('Centro')"></button></div>
+    <div class="boton-con-texto"><span class="provincia-label-overlay">Oriente</span><button class="button oriente" onclick="abrirVentana('Oriente')"></button></div>
+    <div class="boton-con-texto"><span class="provincia-label-overlay">Asturias</span><button class="button asturias" onclick="abrirVentana('Asturias')"></button></div>
+</div>
+
+<div style="margin-top: 80px;"></div>
+
+<h1>Si Occidente, Centro y Oriente hubieran repartido siempre 6, 34 y 5 escaños respectivamente</h1>
+<div class="container">
+    <div class="boton-con-texto"><span class="provincia-label-overlay">Occidente</span><button class="button occidente" onclick="abrirVentanaEscenario6345('Occidente')"></button></div>
+    <div class="boton-con-texto"><span class="provincia-label-overlay">Centro</span><button class="button centro" onclick="abrirVentanaEscenario6345('Centro')"></button></div>
+    <div class="boton-con-texto"><span class="provincia-label-overlay">Oriente</span><button class="button oriente" onclick="abrirVentanaEscenario6345('Oriente')"></button></div>
+    <div class="boton-con-texto"><span class="provincia-label-overlay">Asturias</span><button class="button asturias" onclick="abrirVentanaEscenario6345('Asturias')"></button></div>
+</div>
+<script src="../../js/asturias/provincial_asturias.js"></script>
+</body>
+</html>
