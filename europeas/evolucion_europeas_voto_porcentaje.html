@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="../../css/europeas/evolucion_europeas_voto_porcentaje.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evolución del voto en Elecciones Europeas (%)</title>
+</head>
+<body>
+
+<h1>Evolución del voto del PP en Europeas (porcentaje de voto)</h1>
+<h2>* PP (1987–2024)</h2>
+<canvas id="ppEuropeasChart"></canvas>
+
+<h1>Evolución del voto del PSOE en Europeas (porcentaje de voto)</h1>
+<h2>* PSOE (1987–2024)</h2>
+<canvas id="psoeEuropeasChart"></canvas>
+
+<h1>Evolución del voto de VOX en europeas</h1>
+<h2>* VOX (2014–2024)</h2>
+<canvas id="voxEuropeasChart"></canvas>
+
+<h1>Evolución del voto de AR en europeas</h1>
+<h2>* AR (2019–2024)</h2>
+<canvas id="arEuropeasChart"></canvas>
+
+<h1>Evolución del voto de SUMAR en europeas</h1>
+<h2>* SUMAR (2024)</h2>
+<canvas id="sumarEuropeasChart"></canvas>
+
+<h1>Evolución del voto de SALF en europeas</h1>
+<h2>* SALF (2024)</h2>
+<canvas id="salfEuropeasChart"></canvas>
+
+<h1>Evolución del voto de PODEMOS en europeas</h1>
+<h2>* PODEMOS (2014–2024)</h2>
+<canvas id="podemosEuropeasChart"></canvas>
+
+<h1>Evolución del voto de JUNTS en europeas</h1>
+<h2>* JUNTS (1987–2024)</h2>
+<canvas id="juntsEuropeasChart"></canvas>
+
+<h1>Evolución del voto de CEUS en europeas</h1>
+<h2>* CEUS (1987–2024)</h2>
+<canvas id="ceusEuropeasChart"></canvas>
+
+<h1>Evolución del voto de CIUDADANOS en europeas</h1>
+<h2>* CIUDADANOS (2014–2024)</h2>
+<canvas id="ciudadanosEuropeasChart"></canvas>
+
+<h1>Evolución del voto de COALICIÓN POR LA EUROPA DE LOS PUEBLOS en europeas</h1>
+<h2>* CEP (1987–2014)</h2>
+<canvas id="cepEuropeasChart"></canvas>
+
+<h1>Evolución del voto de COMPROMISO POR EUROPA en europeas</h1>
+<h2>* CPE (2014–2019)</h2>
+<canvas id="cpeEuropeasChart"></canvas>
+
+<h1>Evolución del voto de HB en europeas</h1>
+<h2>* HB (1987–1999)</h2>
+<canvas id="hbEuropeasChart"></canvas>
+
+<h1>Evolución del voto de AGRUPACIÓN RUIZ MATEOS en europeas</h1>
+<h2>* ARM (1989–1994)</h2>
+<canvas id="armEuropeasChart"></canvas>
+
+<h1>Evolución del voto de COALICIÓN NACIONALISTA en europeas</h1>
+<h2>* CN (1989–1999)</h2>
+<canvas id="cnEuropeasChart"></canvas>
+
+<h1>Evolución del voto de L'ESQUERRA PEL DRET A DECIDIR en europeas</h1>
+<h2>* EDD (2014)</h2>
+<canvas id="eddEuropeasChart"></canvas>
+
+<h1>Evolución del voto de FORO ASTURIAS en europeas</h1>
+<h2>* FAC (2014–2019)</h2>
+<canvas id="faEuropeasChart"></canvas>
+
+<h1>Evolución del voto de LPD en europeas</h1>
+<h2>* LPD (2014)</h2>
+<canvas id="lpdEuropeasChart"></canvas>
+
+<h1>Evolución del voto de EXTREMADURA UNIDA en europeas</h1>
+<h2>* EU (1987–2014)</h2>
+<canvas id="euEuropeasChart"></canvas>
+
+<h1>Evolución del voto de UNIÓN VALENCIANA en europeas</h1>
+<h2>* UV (1987–2009)</h2>
+<canvas id="uvEuropeasChart"></canvas>
+
+<h1>Evolución del voto de PAR en europeas</h1>
+<h2>* PAR (1987)</h2>
+<canvas id="parEuropeasChart"></canvas>
+
+<h1>Evolución del voto de PRC en europeas</h1>
+<h2>* PRC (1987)</h2>
+<canvas id="prcEuropeasChart"></canvas>
+
+<h1>Evolución del voto de CDS en europeas</h1>
+<h2>* CDS (1987–2009)</h2>
+<canvas id="cdsEuropeasChart"></canvas>
+
+<h1>Evolución del voto de IZQUIERDA UNIDA en europeas</h1>
+<h2>* IU (1987–2024)</h2>
+<canvas id="iuEuropeasChart"></canvas>
+
+<h1>Evolución del voto de UPyD en europeas</h1>
+<h2>* UPyD (2009–2014)</h2>
+<canvas id="upydEuropeasChart"></canvas>
+
+<h1>Evolución del voto de URAS en europeas</h1>
+<h2>* URAS (1999)</h2>
+<canvas id="urasEuropeasChart"></canvas>
+
+<h1>Evolución del voto de PAS en europeas</h1>
+<h2>* PAS (1994–1999)</h2>
+<canvas id="pasEuropeasChart"></canvas>
+
+<h1>Evolución del voto de PA en europeas</h1>
+<h2>* PA (1987–2014)</h2>
+<canvas id="paEuropeasChart"></canvas>
+
+<h1>Evolución del voto de IZQUIERDA DE LOS PUEBLOS en europeas</h1>
+<h2>* IP (1987–1999)</h2>
+<canvas id="ipEuropeasChart"></canvas>
+
+<h1>Evolución del voto de ARALAR en europeas</h1>
+<h2>* ARALAR (2004)</h2>
+<canvas id="aralarEuropeasChart"></canvas>
+
+<h1>Evolución del voto de BNG en europeas</h1>
+<h2>* BNG (1987–2014)</h2>
+<canvas id="bngEuropeasChart"></canvas>
+
+<h1>Evolución del voto de GALEUSCA en europeas</h1>
+<h2>* GALEUSCA (2004)</h2>
+<canvas id="galeuscaEuropeasChart"></canvas>
+
+<h1>Evolución del voto de CUP en europeas</h1>
+<h2>* CUP (2004)</h2>
+<canvas id="cupEuropeasChart"></canvas>
+
+<h1>Evolución del voto de UPL en europeas</h1>
+<h2>* UPL (1999)</h2>
+<canvas id="uplEuropeasChart"></canvas>
+
+<h1>Voto total por partido en España (Elecciones Europeas)</h1>
+<h2>* Todos los partidos históricos y formaciones regionales/minoritarias</h2>
+<canvas id="europeasChart"></canvas>
+
+
+
+  <!-- JS externo -->
+  <script src="../../js/europeas/evolucion_europeas_voto_porcentaje.js"></script>
+</body>
+</html>
