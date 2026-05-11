@@ -1,4 +1,4 @@
-# 🗳️ Ballotly v3
+# 🗳️ Ballotly 
 
 **Plataforma de análisis y visualización de datos electorales españoles.**  
 Explora resultados históricos por comunidad autónoma, provincia, partido y convocatoria electoral — todo desde el navegador, sin dependencias de servidor.
