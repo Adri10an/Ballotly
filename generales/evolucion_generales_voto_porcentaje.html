@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="../../css/generales/evolucion_generales_voto_porcentaje.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evolución del voto en Elecciones Generales (%)</title>
+</head>
+<body>
+
+<h1>Evolución del voto del PP en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* AP/PP (1977–2023)</h2>
+<canvas id="ppGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PSOE en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PSOE (1977–2023)</h2>
+<canvas id="psoeGeneralesChart"></canvas>
+
+<h1>Evolución del voto de VOX en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* VOX (2015–2023)</h2>
+<canvas id="voxGeneralesChart"></canvas>
+
+<h1>Evolución del voto de SUMAR en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* SUMAR (2023)</h2>
+<canvas id="sumarGeneralesChart"></canvas>
+
+<h1>Evolución del voto de ERC en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* ERC (1977–2023)</h2>
+<canvas id="ercGeneralesChart"></canvas>
+
+<h1>Evolución del voto de JUNTS/CiU en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* JUNTS/CiU (1977–2023)</h2>
+<canvas id="juntsGeneralesChart"></canvas>
+
+<h1>Evolución del voto de EH Bildu en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* EH Bildu / HB (1979–2023)</h2>
+<canvas id="ehbilduGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PNV en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PNV (1977–2023)</h2>
+<canvas id="pnvGeneralesChart"></canvas>
+
+<h1>Evolución del voto del BNG en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* BNG (1989–2023)</h2>
+<canvas id="bngGeneralesChart"></canvas>
+
+<h1>Evolución del voto de CC/CCA en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CC/CCA (1993–2023)</h2>
+<canvas id="ccaGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UPN en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UPN (2023)</h2>
+<canvas id="upnGeneralesChart"></canvas>
+
+<h1>Evolución del voto de la CUP en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CUP (2019–2023)</h2>
+<canvas id="cupGeneralesChart"></canvas>
+
+<h1>Evolución del voto de PODEMOS en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PODEMOS (2015–2019)</h2>
+<canvas id="podemosGeneralesChart"></canvas>
+
+<h1>Evolución del voto de CIUDADANOS en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CIUDADANOS (2008–2019)</h2>
+<canvas id="ciudadanosGeneralesChart"></canvas>
+
+<h1>Evolución del voto de NCA en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* NCA (2008–2023)</h2>
+<canvas id="ncaGeneralesChart"></canvas>
+
+<h1>Evolución del voto de PDeCAT en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PDeCAT (2023)</h2>
+<canvas id="pdecatGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UPL en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UPL (1993–2023)</h2>
+<canvas id="uplGeneralesChart"></canvas>
+
+<h1>Evolución del voto de ARAGÓN EXISTE en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* ARAGÓN EXISTE (2019–2023)</h2>
+<canvas id="aragonExisteGeneralesChart"></canvas>
+
+<h1>Evolución del voto de MÁS PAÍS en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* MÁS PAÍS (2019)</h2>
+<canvas id="masPaisGeneralesChart"></canvas>
+
+<h1>Evolución del voto de CHA en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CHA (1989–2019)</h2>
+<canvas id="chaGeneralesChart"></canvas>
+
+<h1>Evolución del voto de GBAI en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* GBAI (2004–2023)</h2>
+<canvas id="gbaiGeneralesChart"></canvas>
+
+<h1>Evolución del voto de SORIA ¡YA! en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* SORIA ¡YA! (2023)</h2>
+<canvas id="soriaYaGeneralesChart"></canvas>
+
+<h1>Evolución del voto de ADELANTE ANDALUCÍA en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* ADELANTE ANDALUCÍA (2023)</h2>
+<canvas id="adelanteAndaluciaGeneralesChart"></canvas>
+
+<h1>Evolución del voto de XAV en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* XAV (2019–2023)</h2>
+<canvas id="xavGeneralesChart"></canvas>
+
+<h1>Evolución del voto de CAMINANDO JUNTOS (CJ) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CJ (2023)</h2>
+<canvas id="cjGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PAR en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PAR (1979–2023)</h2>
+<canvas id="parGeneralesChart"></canvas>
+
+<h1>Evolución del voto de ZAMORA SÍ en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* ZAMORA SÍ (2023)</h2>
+<canvas id="zamoraSiGeneralesChart"></canvas>
+
+<h1>Evolución del voto de NAVARRA SUMA en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* NAVARRA SUMA (2019)</h2>
+<canvas id="navarraSumaGeneralesChart"></canvas>
+
+<h1>Evolución del voto de CPM en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CPM (2019–2023)</h2>
+<canvas id="cpmGeneralesChart"></canvas>
+
+<h1>Evolución del voto de EL PI en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* EL PI (2015–2019)</h2>
+<canvas id="piGeneralesChart"></canvas>
+
+<h1>Evolución del voto de MÉS en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* MÉS (2015–2019)</h2>
+<canvas id="mesGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UNIDAD POPULAR en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UNIDAD POPULAR (2015)</h2>
+<canvas id="unidadPopularGeneralesChart"></canvas>
+
+<h1>Evolución del voto del FAC en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* FAC (2011)</h2>
+<canvas id="facGeneralesChart"></canvas>
+
+<h1>Evolución del voto de COMPROMÍS en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* COMPROMÍS (2011–2019)</h2>
+<canvas id="compromisGeneralesChart"></canvas>
+
+<h1>Evolución del voto de ARALAR en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* ARALAR (2004–2008)</h2>
+<canvas id="aralarGeneralesChart"></canvas>
+
+<h1>Evolución del voto de URAS en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* URAS (2000)</h2>
+<canvas id="urasGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PARTIDO RIOJANO en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PARTIDO RIOJANO (1993)</h2>
+<canvas id="partidoRiojanoGeneralesChart"></canvas>
+
+<h1>Evolución del voto del GIL en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* GIL (1993–2000)</h2>
+<canvas id="gilGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UNIDAD ALAVESA (UAL) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UAL (1993)</h2>
+<canvas id="ualGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PRC en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PRC (1993–2019)</h2>
+<canvas id="prcGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UPCA en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UPCA (1993)</h2>
+<canvas id="upcaGeneralesChart"></canvas>
+
+<h1>Evolución del voto de CEUTA UNIDA (CEU) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CEU (1989)</h2>
+<canvas id="ceuGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PAS en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PAS (1989–2004)</h2>
+<canvas id="pasGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PSM-EN en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PSM-EN (1989–2004)</h2>
+<canvas id="psmenGeneralesChart"></canvas>
+
+<h1>Evolución del voto de EXTREMADURA UNIDA (EU) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* EU – Extremadura Unida (1989–2015)</h2>
+<canvas id="euGeneralesChart"></canvas>
+
+<h1>Evolución del voto de EA (Eusko Alkartasuna) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* EA (1989–2008)</h2>
+<canvas id="eaGeneralesChart"></canvas>
+
+<h1>Evolución del voto de la AGRUPACIÓN RUIZ-MATEOS (ARM) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* ARM (1989–1993)</h2>
+<canvas id="armGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UV (Unió Valenciana) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UV (1986–2000)</h2>
+<canvas id="uvGeneralesChart"></canvas>
+
+<h1>Evolución del voto de AIC en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* AIC (1986–1989)</h2>
+<canvas id="aicGeneralesChart"></canvas>
+
+<h1>Evolución del voto de COALICIÓN GALLEGA (CG) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CG (1986–2004)</h2>
+<canvas id="cgGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UPC en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UPC (1979–1982)</h2>
+<canvas id="upcGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PARTIDO ANDALUCISTA (PA) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PA (1979–2011)</h2>
+<canvas id="paGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UNIÓN NACIONAL (UN) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UN (1979–1982)</h2>
+<canvas id="unionNacionalGeneralesChart"></canvas>
+
+<h1>Evolución del voto de CD (Coalición Democrática) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CD (1979)</h2>
+<canvas id="cdGeneralesChart"></canvas>
+
+<h1>Evolución del voto de INDEP en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* INDEP (1977)</h2>
+<canvas id="indepGeneralesChart"></canvas>
+
+<h1>Evolución del voto de CAIC en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CAIC (1977)</h2>
+<canvas id="caicGeneralesChart"></canvas>
+
+<h1>Evolución del voto de EE (Euskadiko Ezkerra) en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* EE (1977–1989)</h2>
+<canvas id="eeGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PSP-US en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PSP-US (1977)</h2>
+<canvas id="pspusGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UCD en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UCD (1977–1982)</h2>
+<canvas id="ucdGeneralesChart"></canvas>
+
+<h1>Evolución del voto del PCE en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* PCE (1977–1986)</h2>
+<canvas id="pceGeneralesChart"></canvas>
+
+<h1>Evolución del voto de IU en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* IU (1986–2011)</h2>
+<canvas id="iuGeneralesChart"></canvas>
+
+<h1>Evolución del voto del CDS en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* CDS (1982–2008)</h2>
+<canvas id="cdsGeneralesChart"></canvas>
+
+<h1>Evolución del voto de UPyD en Elecciones Generales (porcentaje de voto)</h1>
+<h2>* UPyD (2008–2016)</h2>
+<canvas id="upydGeneralesChart"></canvas>
+
+<!-- ===== GRÁFICO GLOBAL COMBINADO ===== -->
+<h1>Voto total por partido en España (Elecciones Generales)</h1>
+<h2>* Todos los partidos históricos y formaciones regionales/minoritarias (1977–2023)</h2>
+<canvas id="generalesGlobalChart"></canvas>
+
+
+
+  <!-- JS externo -->
+  <script src="../../js/generales/evolucion_generales_voto_porcentaje.js"></script>
+</body>
+</html>

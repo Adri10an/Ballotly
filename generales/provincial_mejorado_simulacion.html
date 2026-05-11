@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="../../css/generales/provincial_mejorado_simulacion.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provincias de España</title>
+</head>
+<body>
+    <h1>Simulación general: Elige una circunscripción y descubre cómo se distribuirían los escaños del Congreso manteniendo el número actual asignado a cada provincia.</h1>
+    <div class="container">
+        <div class="boton-con-texto"><span class="titulo-boton">Ceuta</span><button class="button ceuta" onclick="abrirVentana('Ceuta')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Melilla</span><button class="button melilla" onclick="abrirVentana('Melilla')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Soria</span><button class="button soria" onclick="abrirVentana('Soria')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Teruel</span><button class="button teruel" onclick="abrirVentana('Teruel')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Segovia</span><button class="button segovia" onclick="abrirVentana('Segovia')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Cuenca</span><button class="button cuenca" onclick="abrirVentana('Cuenca')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Huesca</span><button class="button huesca" onclick="abrirVentana('Huesca')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Palencia</span><button class="button palencia" onclick="abrirVentana('Palencia')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Zamora</span><button class="button zamora" onclick="abrirVentana('Zamora')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Ávila</span><button class="button avila" onclick="abrirVentana('Avila')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Guadalajara</span><button class="button guadalajara" onclick="abrirVentana('Guadalajara')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Albacete</span><button class="button albacete" onclick="abrirVentana('Albacete')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Lleida</span><button class="button lleida" onclick="abrirVentana('Lleida')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">LaRioja</span><button class="button larioja" onclick="abrirVentana('La Rioja')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Lugo</span><button class="button lugo" onclick="abrirVentana('Lugo')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Orense</span><button class="button orense" onclick="abrirVentana('Orense')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Cáceres</span><button class="button caceres" onclick="abrirVentana('Cáceres')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">León</span><button class="button leon" onclick="abrirVentana('León')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Álava</span><button class="button alava" onclick="abrirVentana('Álava')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Burgos</span><button class="button burgos" onclick="abrirVentana('Burgos')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Salamanca</span><button class="button salamanca" onclick="abrirVentana('Salamanca')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Valladolid</span><button class="button valladolid" onclick="abrirVentana('Valladolid')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Jaén</span><button class="button jaen" onclick="abrirVentana('Jaén')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Castellón</span><button class="button castellon" onclick="abrirVentana('Castellón')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Badajoz</span><button class="button badajoz" onclick="abrirVentana('Badajoz')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Cantabria</span><button class="button cantabria" onclick="abrirVentana('Cantabria')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Navarra</span><button class="button navarra" onclick="abrirVentana('Navarra')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Huelva</span><button class="button huelva" onclick="abrirVentana('Huelva')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">CiudadReal</span><button class="button ciudadreal" onclick="abrirVentana('Ciudad Real')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Guipuzcoa</span><button class="button guipuzcoa" onclick="abrirVentana('Guipuzcoa')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Tarragona</span><button class="button tarragona" onclick="abrirVentana('Tarragona')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Girona</span><button class="button girona" onclick="abrirVentana('Girona')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Toledo</span><button class="button toledo" onclick="abrirVentana('Toledo')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Córdoba</span><button class="button cordoba" onclick="abrirVentana('Córdoba')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Almería</span><button class="button almeria" onclick="abrirVentana('Almería')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Pontevedra</span><button class="button pontevedra" onclick="abrirVentana('Pontevedra')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Granada</span><button class="button granada" onclick="abrirVentana('Granada')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Asturias</span><button class="button asturias" onclick="abrirVentana('Asturias')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Zaragoza</span><button class="button zaragoza" onclick="abrirVentana('Zaragoza')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Tenerife</span><button class="button santacruzdetenerife" onclick="abrirVentana('Santa Cruz de Tenerife')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Baleares</span><button class="button baleares" onclick="abrirVentana('Baleares')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Vizcaya</span><button class="button vizcaya" onclick="abrirVentana('Vizcaya')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">LasPalmas</span><button class="button laspalmas" onclick="abrirVentana('Las Palmas')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">ACoruña</span><button class="button acoruña" onclick="abrirVentana('A Coruña')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Cádiz</span><button class="button cadiz" onclick="abrirVentana('Cádiz')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Murcia</span><button class="button murcia" onclick="abrirVentana('Murcia')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Málaga</span><button class="button malaga" onclick="abrirVentana('Málaga')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Alicante</span><button class="button alicante" onclick="abrirVentana('Alicante')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Sevilla</span><button class="button sevilla" onclick="abrirVentana('Sevilla')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Valencia</span><button class="button valencia" onclick="abrirVentana('Valencia')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Barcelona</span><button class="button barcelona" onclick="abrirVentana('Barcelona')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">Madrid</span><button class="button madrid" onclick="abrirVentana('Madrid')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton">España</span><button class="button espana" onclick="abrirVentana('España')"></button></div>
+        <div class="boton-con-texto"><span class="titulo-boton"></span><button class="button espana2" onclick="abrirVentana('España2')"></button></div>
+      </div>      
+
+  <!-- JS externo -->
+  <script src="../../js/generales/provincial_mejorado_simulacion.js"></script>
+</body>
+
+</html>

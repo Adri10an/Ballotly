@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballotly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="../js/json_data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/theme.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+
+</head>
+<body>
+
+<!-- 🌍 CONTENIDO PRINCIPAL -->
+<div id="main-container">
+
+    <!-- TOP BAR -->
+    <div id="top-bar">
+        <div class="bly-logo">
+            <svg width="19" height="19" viewBox="0 0 22 22" fill="none">
+                <circle cx="11" cy="11" r="10" stroke="#4f8ef7" stroke-width="1.5"/>
+                <circle cx="11" cy="11" r="4" fill="#4f8ef7"/>
+                <line x1="11" y1="1" x2="11" y2="5" stroke="#4f8ef7" stroke-width="1.5"/>
+                <line x1="11" y1="17" x2="11" y2="21" stroke="#4f8ef7" stroke-width="1.5"/>
+                <line x1="1" y1="11" x2="5" y2="11" stroke="#4f8ef7" stroke-width="1.5"/>
+                <line x1="17" y1="11" x2="21" y2="11" stroke="#4f8ef7" stroke-width="1.5"/>
+            </svg>
+            Ballotly<span>Tools</span>
+        </div>
+        <h1 id="mensaje-bienvenida"></h1>
+        <div class="sel-wrap" id="sel-wrap">
+            <label for="selector-comunidad">Comunidad&nbsp;</label>
+            <select id="selector-comunidad">
+                <option value="" style="font-weight:700;color:#f5b731;">Selecciona Elecciones Autonómicas...</option>
+                <option value="andalucia">Andalucía</option>
+                <option value="aragon">Aragón</option>
+                <option value="asturias">Asturias</option>
+                <option value="baleares">Baleares</option>
+                <option value="canarias">Canarias</option>
+                <option value="cantabria">Cantabria</option>
+                <option value="castilla_la_mancha">Castilla-La Mancha</option>
+                <option value="castilla_y_leon">Castilla y León</option>
+                <option value="cataluna">Cataluña</option>
+                <option value="ceuta">Ceuta</option>
+                <option value="comunidad_valenciana">Com. Valenciana</option>
+                <option value="extremadura">Extremadura</option>
+                <option value="galicia">Galicia</option>
+                <option value="la_rioja">La Rioja</option>
+                <option value="madrid">Madrid</option>
+                <option value="melilla">Melilla</option>
+                <option value="murcia">Murcia</option>
+                <option value="navarra">Navarra</option>
+                <option value="pais_vasco">País Vasco</option>
+                <optgroup label="──────────────────">
+                </optgroup>
+                <option value="generales" style="font-weight:700;color:#f5b731;">Selecciona Elecciones Generales...</option>
+                <option value="europeas" style="font-weight:700;color:#f5b731;">Selecciona Elecciones Europeas...</option>
+            </select>
+        </div>
+        <!-- Theme toggle -->
+        <button class="bly-theme-toggle" id="bly-theme-btn" title="Cambiar tema claro / oscuro" onclick="BLY_THEME.toggle()">
+          <span class="bly-tt-sun">☀️ Claro</span>
+          <span class="bly-tt-pill" id="bly-tt-pill"></span>
+          <span class="bly-tt-moon">🌙 Oscuro</span>
+        </button>
+        <!-- Auth button -->
+        <button id="auth-user-btn" style="
+          background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.25);
+          color:var(--accent);font-family:var(--font);font-size:11px;font-weight:600;
+          padding:5px 14px;border-radius:7px;cursor:pointer;flex-shrink:0;
+          display:flex;align-items:center;gap:6px;transition:background .2s;
+        " onmouseover="this.style.background='rgba(79,142,247,0.2)'"
+          onmouseout="this.style.background='rgba(79,142,247,0.1)'"
+          onclick="AUTH.showAuthModal()">🔐 Iniciar sesión</button>
+    </div>
+
+    <!-- MAIN TABS -->
+    <nav class="main-tabs">
+        <button class="main-tab active" data-tab="datos">📊 Datos electorales</button>
+        <button class="main-tab" data-tab="mandatometro">⏱ Mandatómetro</button>
+        <button class="main-tab" data-tab="dhondt">🗳 Calculadora</button>
+        <button class="main-tab" data-tab="calcamp">🏛️ Calc. Amplificada</button>
+        <button class="main-tab" data-tab="encuestas">📈 Encuestas</button>
+        <button class="main-tab" data-tab="sistemas">🌍 Sistemas</button>
+        <button class="main-tab" data-tab="calendario">📅 Calendario</button>
+        <button class="main-tab" data-tab="mapaelectoral">🗺️ Mapa Electoral</button>
+        <button class="main-tab" data-tab="ranking">🏆 Ranking Autonómico</button>
+        <button class="main-tab" data-tab="rankingpartidos">🎖️ Ranking por Partidos</button>
+        <button class="main-tab" data-tab="rankingprovincias">🗺️ Ranking por Provincias</button>
+        <button class="main-tab" data-tab="ganadores">🏆 Ganador por Provincia</button>
+        <button class="main-tab" data-tab="evolucion">📈 Evolución Electoral</button>
+        <button class="main-tab" data-tab="deltavoto">↕️ Cambio de Voto</button>
+        <button class="main-tab" data-tab="brecha">📏 Brecha Territorial</button>
+        <button class="main-tab" data-tab="polarizacion">⚡ Polarización</button>
+        <button class="main-tab" data-tab="comparador">🔬 Comparador</button>
+        <button class="main-tab" data-tab="izqder">⚖️ Izq vs Der</button>
+        <button class="main-tab" data-tab="recursos">🔗 Recursos</button>
+        <button class="main-tab" data-tab="comparativa">📊 Comparativa</button>
+        <button class="main-tab" data-tab="tests">🧪 Tests Políticos</button>
+        <button class="main-tab" data-tab="pensiones-gasto">💰 Gasto en Pensiones</button>
+        <button class="main-tab" data-tab="pensiones-provincia">🗺️ Pensiones por Provincia</button>
+        <button class="main-tab" data-tab="lideres">🗣️ Valoración de Líderes</button>
+        <button class="main-tab" data-tab="votojoven">🧑‍🤝‍🧑 Voto Joven y Mayor</button>
+        <button class="main-tab" data-tab="ohios">🪞 Ohios Autonómicos</button>
+        <button class="main-tab" data-tab="translacion">🔄 Translación Electoral</button>
+        <button class="main-tab" data-tab="espana-calculadora">🗳️ España Calculadora</button>
+    </nav>
+
+    <!-- ═══ PANEL: DATOS ═══ -->
+    <div id="panel-datos" class="tool-panel active">
+        <div id="datos-hint">← Selecciona una comunidad autónoma arriba para ver sus gráficos</div>
+        <!-- Imagen representativa de la comunidad autónoma -->
+        <div id="datos-comunidad-imagen" style="display:none;margin-bottom:16px;">
+            <img id="datos-img-banner"
+                 src="https://www.hotelindiana.es/wp-content/uploads/2022/09/plaza-mayor-de-madrid.jpg"
+                 alt="Imagen comunidad autónoma"
+                 style="width:100%;max-height:260px;object-fit:cover;border-radius:14px;border:1px solid var(--border);display:block;">
+        </div>
+        <!-- Buscador de gráficos -->
+        <div id="datos-search-wrap" style="display:none;margin-bottom:14px;">
+            <div style="display:flex;align-items:center;background:var(--surface);border:1px solid var(--border2);border-radius:9px;padding:7px 12px;gap:8px;max-width:480px;">
+                <span style="font-size:15px;color:var(--text3);">🔍</span>
+                <input id="datos-search-input" placeholder="Buscar gráfico (ej: Escaños, Alicante, % Votos…)" style="background:none;border:none;outline:none;font-size:13px;color:var(--text);width:100%;font-family:var(--font);" oninput="filterDatosButtons()">
+                <button onclick="document.getElementById('datos-search-input').value='';filterDatosButtons();" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:0;line-height:1;">×</button>
+            </div>
+            <div id="datos-no-results" style="display:none;font-size:12px;color:var(--text3);margin-top:8px;">No se encontraron gráficos para esta búsqueda.</div>
+        </div>
+        <div id="botones-comunidad"></div>
+    </div>
+
+    <!-- ═══ PANEL: MANDATÓMETRO ═══ -->
+    <div id="panel-mandatometro" class="tool-panel">
+        <div class="ph">
+            <div class="pt">Mandatómetro</div>
+            <div class="ps">Días en el cargo de los presidentes de la democracia española · Actualización en tiempo real</div>
+        </div>
+
+        <!-- SUB-TABS MANDATÓMETRO -->
+        <div style="display:flex;gap:6px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:12px;flex-wrap:wrap;">
+            <button class="btn mandato-subtab active" data-mtab="nacional" onclick="switchMandatoTab('nacional',this)">🇪🇸 Nacional</button>
+            <button class="btn btn-g mandato-subtab" data-mtab="autonomico" onclick="switchMandatoTab('autonomico',this)">🗺️ Autonómico por CCAA</button>
+            <button class="btn btn-g mandato-subtab" data-mtab="global-autonomico" onclick="switchMandatoTab('global-autonomico',this)">📊 Global Autonómico</button>
+        </div>
+
+        <!-- SUB-PANEL: NACIONAL (existing) -->
+        <div id="mandato-sub-nacional">
+            <div class="sg" id="mandato-stats">
+                <div class="sc"><div class="sv" id="stat-dias-sanchez" style="color:#e53935;">—</div><div class="sl">Días Sánchez</div></div>
+                <div class="sc"><div class="sv" id="stat-ranking" style="color:var(--gold);">#3</div><div class="sl">Posición actual</div></div>
+                <div class="sc"><div class="sv" id="stat-para-superar" style="color:var(--accent);">—</div><div class="sl">Días para superar</div></div>
+                <div class="sc"><div class="sv" id="stat-record" style="color:var(--text2);">4.903</div><div class="sl">Récord (González)</div></div>
+            </div>
+
+            <div class="nmile card-sm" style="margin-bottom:14px;">
+                <div class="micon">🏁</div>
+                <div class="minfo">
+                    <div class="mtitle" id="milestone-title">Calculando próxima superación…</div>
+                    <div class="msub" id="milestone-sub"></div>
+                </div>
+                <div class="mdays" id="milestone-days">—</div>
+            </div>
+
+            <div class="card" style="padding:18px 15px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                    <div class="stitle" style="margin:0;">Comparativa de mandatos</div>
+                    <button class="btn btn-g" style="font-size:10px;padding:4px 9px;" onclick="exportPres()">⬇ CSV</button>
+                </div>
+                <div id="mc-wrap"><canvas id="mandatometro-chart"></canvas></div>
+            </div>
+
+            <div class="card">
+                <div class="stitle">Desglose por presidente</div>
+                <div id="pres-bars"></div>
+            </div>
+
+            <div id="admin-ctrl-mandato" style="display:none;">
+                <div class="card" style="border-color:rgba(245,183,49,.2);">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+                        <span class="badge b-gold">Admin</span>
+                        <span class="stitle" style="margin:0;">Gestión de presidentes</span>
+                    </div>
+                    <button class="btn" onclick="showAddPresForm()">+ Añadir presidente</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUB-PANEL: AUTONÓMICO POR CCAA -->
+        <div id="mandato-sub-autonomico" style="display:none;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:220px;">
+                    <span style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);">Comunidad</span>
+                    <select id="mandato-ccaa-sel" onchange="mandatoLoadCCAA(this.value)" style="background:var(--bg4);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;padding:8px 14px;border-radius:7px;cursor:pointer;flex:1;outline:none;">
+                        <option value="">— Selecciona una comunidad —</option>
+                        <option value="galicia">🏔️ Galicia</option>
+                        <option value="asturias">⛏️ Asturias</option>
+                        <option value="cantabria">🌊 Cantabria</option>
+                        <option value="euskadi">🌿 País Vasco</option>
+                        <option value="navarra">🏰 Navarra</option>
+                        <option value="aragon">🦅 Aragón</option>
+                        <option value="cataluna">🌹 Cataluña</option>
+                        <option value="baleares">⛵ Islas Baleares</option>
+                        <option value="canarias">🌋 Canarias</option>
+                        <option value="ceuta">🌉 Ceuta</option>
+                        <option value="melilla">🕌 Melilla</option>
+                        <option value="valencia">🍊 C. Valenciana</option>
+                        <option value="rioja">🍷 La Rioja</option>
+                        <option value="castillaleon">🏯 Castilla y León</option>
+                        <option value="madrid">🏟️ Madrid</option>
+                        <option value="extremadura">🌿 Extremadura</option>
+                        <option value="castillamancha">⚔️ Castilla-La Mancha</option>
+                        <option value="murcia">🌞 Murcia</option>
+                        <option value="andalucia">🌺 Andalucía</option>
+                    </select>
+                </div>
+                <div style="display:flex;gap:5px;background:var(--bg4);border:1px solid var(--border);border-radius:7px;padding:3px;">
+                    <button id="mandato-aut-btn-barras" class="btn" style="font-size:11px;padding:5px 13px;" onclick="mandatoSetView('barras',this)">📊 Barras</button>
+                    <button id="mandato-aut-btn-podio" class="btn btn-g" style="font-size:11px;padding:5px 13px;" onclick="mandatoSetView('podio',this)">🏆 Podio</button>
+                </div>
+            </div>
+
+            <div id="mandato-aut-placeholder" style="text-align:center;padding:60px 20px;color:var(--text3);">
+                <div style="font-size:3rem;margin-bottom:14px;">🗺️</div>
+                <p style="font-size:13px;">Selecciona una comunidad autónoma para ver su histórico de presidentes</p>
+            </div>
+
+            <div id="mandato-aut-content" style="display:none;">
+                <div style="display:flex;align-items:center;gap:18px;margin-bottom:20px;flex-wrap:wrap;">
+                    <img id="mandato-aut-flag" style="width:64px;height:auto;border-radius:5px;border:1px solid var(--border);" src="" alt="" onerror="this.style.display='none'">
+                    <div style="flex:1;">
+                        <div style="font-size:17px;font-weight:700;" id="mandato-aut-name"></div>
+                        <div style="font-size:12px;color:var(--text3);" id="mandato-aut-sub"></div>
+                    </div>
+                    <div class="sg" style="margin:0;min-width:360px;">
+                        <div class="sc"><div class="sv" id="mandato-aut-stat-dias-actual" style="color:#e53935;">—</div><div class="sl" id="mandato-aut-stat-dias-actual-lbl">Días actual</div></div>
+                        <div class="sc"><div class="sv" id="mandato-aut-stat-posicion" style="color:var(--gold);">—</div><div class="sl">Posición actual</div></div>
+                        <div class="sc"><div class="sv" id="mandato-aut-stat-para-superar" style="color:var(--accent);">—</div><div class="sl">Días para superar</div></div>
+                        <div class="sc"><div class="sv" id="mandato-aut-stat-record" style="color:var(--text2);">—</div><div class="sl" id="mandato-aut-stat-record-lbl">Récord</div></div>
+                    </div>
+                </div>
+                <div class="nmile card-sm" id="mandato-aut-milestone" style="margin-bottom:14px;display:none;">
+                    <div class="micon">🏁</div>
+                    <div class="minfo">
+                        <div class="mtitle" id="mandato-aut-milestone-title">—</div>
+                        <div class="msub" id="mandato-aut-milestone-sub"></div>
+                    </div>
+                    <div class="mdays" id="mandato-aut-milestone-days">—</div>
+                </div>
+                <div id="mandato-aut-view-barras"></div>
+                <div id="mandato-aut-view-podio" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- SUB-PANEL: GLOBAL AUTONÓMICO -->
+        <div id="mandato-sub-global-autonomico" style="display:none;">
+            <div id="mandato-glob-stats" class="sg" style="margin-bottom:16px;"></div>
+
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;border:1px solid var(--border);border-radius:9px;padding:10px 14px;background:var(--bg4);">
+                <span style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;">Filtrar</span>
+                <div id="mandato-glob-party-filters" style="display:flex;gap:5px;flex-wrap:wrap;flex:1;"></div>
+                <select id="mandato-glob-sort" onchange="mandatoGlobSort(this.value)" style="background:var(--bg4);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:11px;padding:6px 10px;border-radius:6px;outline:none;cursor:pointer;">
+                    <option value="dias-desc">Mayor tiempo ↓</option>
+                    <option value="dias-asc">Menor tiempo ↑</option>
+                    <option value="nombre">Nombre A-Z</option>
+                    <option value="ccaa">Por CCAA</option>
+                </select>
+                <div style="display:flex;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:3px;">
+                    <button id="mandato-glob-btn-barras" class="btn" style="font-size:11px;padding:4px 11px;" onclick="mandatoGlobSetView('barras',this)">📊</button>
+                    <button id="mandato-glob-btn-podio" class="btn btn-g" style="font-size:11px;padding:4px 11px;" onclick="mandatoGlobSetView('podio',this)">🏆</button>
+                </div>
+            </div>
+
+            <div id="mandato-glob-results-count" style="font-size:11px;color:var(--text3);margin-bottom:12px;"></div>
+            <div id="mandato-glob-view-barras"></div>
+            <div id="mandato-glob-view-podio" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- ═══ PANEL: D'HONDT ═══ -->
+    <div id="panel-dhondt" class="tool-panel">
+        <div class="ph">
+            <div class="pt">Calculadora Electoral</div>
+            <div class="ps">Calcula el reparto de escaños y simula pactos de investidura</div>
+        </div>
+        <!-- SUB-TABS CALCULADORA -->
+        <div style="display:flex;gap:6px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:12px;flex-wrap:wrap;">
+            <button class="btn calc-subtab active" data-ctab="dhondt-tool" onclick="switchCalcTab('dhondt-tool',this)">🗳 Calculadora D'Hondt</button>
+            <button class="btn btn-g calc-subtab" data-ctab="pactometro" onclick="switchCalcTab('pactometro',this)">🤝 Pactómetro</button>
+        </div>
+
+        <!-- SUB-PANEL: D'HONDT -->
+        <div id="ctab-dhondt-tool" class="calc-subpanel">
+        <div class="dl">
+            <div>
+                <div class="card">
+                    <div class="ig"><label class="il">Nombre del sondeo / elección</label><input class="if" id="dhondt-nombre" value="Elección ejemplo" placeholder="Nombre..."></div>
+                    <div class="ig"><label class="il">Escaños a repartir</label><input class="if" type="number" id="dhondt-seats" value="350" min="1" max="999"></div>
+                    <div class="ig"><label class="il">Umbral mínimo (%)</label><input class="if" type="number" id="dhondt-threshold" value="3" min="0" max="20" step="0.5"></div>
+                </div>
+                <div class="card">
+                    <div class="stitle">Método de reparto</div>
+                    <div class="mtabs">
+                        <button class="mtab active" data-method="dhondt">D'Hondt</button>
+                        <button class="mtab" data-method="saintelague">Sainte-Laguë</button>
+                        <button class="mtab" data-method="modified">Mod. S-L</button>
+                        <button class="mtab" data-method="adams">Adams</button>
+                        <button class="mtab" data-method="hare">Cuota Hare</button>
+                    </div>
+                    <div id="method-desc" style="font-size:11px;color:var(--text2);line-height:1.5;padding:7px 9px;background:var(--bg4);border-radius:7px;"></div>
+                </div>
+                <div class="card">
+                    <div class="stitle">Partidos y votos</div>
+                    <div id="party-list"></div>
+                    <button class="btn btn-g" onclick="addParty()" style="width:100%;margin-top:7px;justify-content:center;">+ Añadir partido</button>
+                </div>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                    <button class="btn" onclick="calcularDhondt()" style="flex:1;">Calcular escaños</button>
+                    <button class="btn btn-g" onclick="exportDhondtCSV()">CSV</button>
+                    <button class="btn btn-g" onclick="alert('Usa Ctrl+P → Guardar como PDF')">PDF</button>
+                </div>
+            </div>
+            <div>
+                <div class="card" id="dhondt-res" style="display:none;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                        <div>
+                            <div style="font-size:14px;font-weight:700;" id="dhondt-res-title">Resultados</div>
+                            <div style="font-size:11px;color:var(--text2);" id="dhondt-res-method">—</div>
+                        </div>
+                    </div>
+                    <div class="hwrap"><svg id="hemiciclo-svg" width="380" height="220" viewBox="0 0 380 220"></svg></div>
+                    <div id="hemi-legend" style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;"></div>
+                    <div class="divider"></div>
+                    <table class="st"><thead><tr><th>#</th><th>Partido</th><th>Votos</th><th>%</th><th>Escaños</th><th>% Esc.</th><th>Prima</th></tr></thead><tbody id="dhondt-tbody"></tbody></table>
+                    <div class="divider"></div>
+                    <div class="stitle">Orden de aparición</div>
+                    <div id="orden-aparicion" style="display:flex;flex-wrap:wrap;gap:3px;"></div>
+                    <div id="orden-ver-mas-wrap" style="display:none;margin-top:8px;">
+                        <button class="btn btn-g" id="orden-ver-mas-btn" onclick="verMasOrden()" style="font-size:11px;padding:5px 14px;">Ver todos los escaños ▼</button>
+                    </div>
+                    <div id="orden-aparicion-extra" style="display:none;flex-wrap:wrap;gap:3px;margin-top:4px;"></div>
+                    <div id="dhondt-ultimo-escano" style="display:none;margin-top:12px;background:var(--bg4);border:1px solid var(--border2);border-radius:9px;padding:11px 15px;font-size:13px;line-height:1.7;"></div>
+                </div>
+                <div class="card" id="dhondt-empty" style="text-align:center;padding:36px 18px;">
+                    <div style="font-size:36px;margin-bottom:10px;">🗳️</div>
+                    <div style="font-size:13px;font-weight:600;margin-bottom:5px;">Configura tu elección</div>
+                    <div style="font-size:12px;color:var(--text2);">Añade partidos, votos y pulsa "Calcular escaños"</div>
+                </div>
+            </div>
+        </div>
+        </div><!-- end ctab-dhondt-tool -->
+
+        <!-- SUB-PANEL: PACTÓMETRO -->
+        <div id="ctab-pactometro" class="calc-subpanel" style="display:none;">
+            <div class="dl">
+                <div>
+                    <!-- Configuración del pactómetro -->
+                    <div class="card">
+                        <div class="stitle">Configuración</div>
+                        <div class="ig">
+                            <label class="il">Nombre de la elección</label>
+                            <input class="if" id="pacto-nombre" value="Castilla y León 2022" placeholder="Nombre...">
+                        </div>
+                        <div class="ig">
+                            <label class="il">Mayoría necesaria</label>
+                            <input class="if" type="number" id="pacto-mayoria" value="41" min="1" max="999" oninput="renderPactometro()">
+                        </div>
+                        <div class="ig">
+                            <label class="il">Candidato/a en investidura</label>
+                            <input class="if" id="pacto-candidato" value="" placeholder="Nombre del candidato..." oninput="renderPactometro()">
+                        </div>
+                    </div>
+                    <!-- Partidos del pactómetro -->
+                    <div class="card">
+                        <div class="stitle">Partidos y escaños</div>
+                        <div id="pacto-party-list"></div>
+                        <div style="display:flex;gap:7px;margin-top:8px;">
+                            <button class="btn btn-g" onclick="addPactoParty()" style="flex:1;justify-content:center;">+ Añadir partido</button>
+                            <button class="btn btn-g" onclick="loadPactoPreset()" style="justify-content:center;">📋 Preset CyL</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!-- Resultado del pactómetro -->
+                    <div class="card" id="pacto-result-card">
+                        <!-- Candidato -->
+                        <div style="text-align:center;margin-bottom:14px;">
+                            <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:4px;">¿Logrará la investidura?</div>
+                            <div id="pacto-candidato-label" style="font-size:16px;font-weight:800;color:var(--text);"></div>
+                            <div id="pacto-resultado-msg" style="font-size:13px;margin-top:6px;line-height:1.5;padding:10px 14px;border-radius:9px;font-weight:600;"></div>
+                        </div>
+                        <!-- Barra de mayoría -->
+                        <div style="margin-bottom:10px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                                <span style="font-size:12px;font-weight:700;color:var(--accent);">SÍ: <span id="pacto-si-count" style="font-size:15px;">0</span></span>
+                                <span style="font-size:10px;color:var(--text3);" id="pacto-mayoria-label">Mayoría absoluta (41)</span>
+                                <span style="font-size:12px;font-weight:700;color:#ef5350;">NO: <span id="pacto-no-count" style="font-size:15px;">0</span></span>
+                            </div>
+                            <div id="pacto-bar-wrap" style="position:relative;height:28px;background:var(--bg4);border-radius:8px;overflow:hidden;display:flex;">
+                                <div id="pacto-bar-si" style="background:linear-gradient(90deg,#4f8ef7,#2563eb);height:100%;transition:width .4s;min-width:0;display:flex;align-items:center;justify-content:flex-end;padding-right:5px;"></div>
+                                <div id="pacto-bar-abst" style="background:linear-gradient(90deg,#e3b341,#b8900d);height:100%;transition:width .4s;min-width:0;"></div>
+                                <div id="pacto-bar-no" style="background:linear-gradient(90deg,#ef5350,#b71c1c);height:100%;transition:width .4s;min-width:0;flex:1;"></div>
+                                <div id="pacto-bar-marker" style="position:absolute;top:0;bottom:0;width:2px;background:#fff;opacity:.8;"></div>
+                            </div>
+                            <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;">
+                                <span style="font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#2563eb;display:inline-block;"></span>Sí</span>
+                                <span style="font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#e3b341;display:inline-block;"></span>Abstención</span>
+                                <span style="font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#ef5350;display:inline-block;"></span>No</span>
+                                <span style="font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#888;display:inline-block;"></span>Sin voto</span>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Detalle por partido -->
+                        <div id="pacto-party-detail"></div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end ctab-pactometro -->
+
+    </div>
+
+
+    <!-- ═══ PANEL: CALCULADORA AMPLIFICADA ═══ -->
+    <div id="panel-calcamp" class="tool-panel" style="padding:0;">
+    
+
+    <div id="calcamp-wrapper">
+      <!-- Top bar: config info + action buttons -->
+      <div class="cc-topbar">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="cc-topbar-stat">Método: <strong id="cc-top-method">D'Hondt</strong></div>
+          <div class="cc-topbar-stat">|</div>
+          <div class="cc-topbar-stat">Extensión: <strong id="cc-top-ext">Circunscripciones</strong></div>
+          <div class="cc-topbar-stat">|</div>
+          <div class="cc-topbar-stat">Corte: <strong id="cc-top-cut">5%</strong></div>
+          <div class="cc-topbar-stat">|</div>
+          <div class="cc-topbar-stat">Escaños: <strong id="cc-top-seats">65</strong></div>
+        </div>
+        <div style="display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;align-items:center;">
+          <button class="cc-btn cc-btn-secondary" onclick="ccNuevo()" title="Nuevo">🔄 Nuevo</button>
+          <label class="cc-btn cc-btn-secondary" style="cursor:pointer;" title="Importar JSON">
+            📥 Importar .js
+            <input type="file" accept=".json,.js" style="display:none;" onchange="ccImportarJSON(event)">
+          </label>
+          <div class="cc-dropdown" id="cc-export-dd">
+            <button class="cc-btn cc-btn-secondary" onclick="toggleDD('cc-export-dd')">📤 Exportar ▾</button>
+            <div class="cc-dropdown-menu" id="cc-export-dd-menu">
+              <button onclick="ccExportarJSON();toggleDD('cc-export-dd')">Exportar .json</button>
+              <button onclick="ccExportarCSV();toggleDD('cc-export-dd')">Exportar CSV general</button>
+            </div>
+          </div>
+          <button class="cc-btn" style="background:rgba(79,142,247,.15);color:var(--accent);border:1px solid rgba(79,142,247,.3);" onclick="ccOpenLibrary()">📚 Biblioteca</button>
+          <div class="cc-save-info" id="cc-save-info"><div class="cc-save-dot" id="cc-save-dot" style="background:#e3b341;"></div><span id="cc-save-text">Sin guardar</span></div>
+          <button class="cc-btn cc-btn-primary" onclick="ccGuardar()">💾 Guardar</button>
+        </div>
+      </div>
+
+      <!-- Sub-tabs -->
+      <div class="cc-tabs">
+        <button class="cc-tab active" onclick="switchCCTab('general',this)">🏠 General</button>
+        <button class="cc-tab" onclick="switchCCTab('circunscripciones',this)">🌍 Circunscripciones</button>
+        <button class="cc-tab" onclick="switchCCTab('pactometro',this)">🤝 Pactómetro</button>
+        <button class="cc-tab" onclick="switchCCTab('utilidades',this)">⚙️ Utilidades</button>
+      </div>
+
+      <!-- ═ TAB: GENERAL ═ -->
+      <div id="cctab-general" class="cc-panel active">
+        <!-- Config row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+          <div>
+            <label class="cc-field"><span style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px;">Método por defecto</span>
+              <select class="cc-sel" id="cc-method" onchange="ccMethodChange()" style="width:100%;">
+                <option value="dhondt">D'Hondt</option>
+                <option value="saintelague">Sainte-Laguë</option>
+                <option value="modified">Mod. Sainte-Laguë</option>
+                <option value="hare">Cuota Hare</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label class="cc-field"><span style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px;">Extensión electoral</span>
+              <select class="cc-sel" id="cc-ext" onchange="ccExtChange()" style="width:100%;">
+                <option value="c">Circunscripciones</option>
+                <option value="u">Circunscripción única</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label class="cc-field"><span style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px;">Corte electoral (%)</span>
+              <input type="number" class="cc-sel" id="cc-cut" value="5" min="0" max="20" step="0.5" oninput="ccRecalculate()" style="width:100%;">
+            </label>
+          </div>
+          <div>
+            <label class="cc-field"><span style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px;">Escaños totales</span>
+              <input type="number" class="cc-sel" id="cc-total-seats" value="65" min="1" max="999" oninput="ccRecalculate()" style="width:100%;" id="cc-seats-input">
+            </label>
+          </div>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="cc-stats-bar">
+          <div class="cc-stat"><div class="cc-stat-label">Votantes</div><div class="cc-stat-val" id="cc-stat-voters">—</div></div>
+          <div class="cc-stat"><div class="cc-stat-label">Votos válidos</div><div class="cc-stat-val" id="cc-stat-valid">—</div></div>
+          <div class="cc-stat"><div class="cc-stat-label">En blanco</div><div class="cc-stat-val" id="cc-stat-blank">—</div></div>
+          <div class="cc-stat"><div class="cc-stat-label">Censo</div><div class="cc-stat-val" id="cc-stat-census">—</div></div>
+          <div class="cc-stat"><div class="cc-stat-label">Participación</div><div class="cc-stat-val" id="cc-stat-part">—</div></div>
+        </div>
+
+        <!-- Results section -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <!-- Left: results table -->
+          <div>
+            <div class="cc-card">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <div class="cc-card-title" style="margin-bottom:0;">📋 Resultados</div>
+                <div style="display:flex;gap:6px;">
+                  <button class="cc-btn cc-btn-green" onclick="ccAddParty()" style="font-size:11px;padding:4px 10px;">+ Nueva candidatura</button>
+                  <button class="cc-btn cc-btn-secondary" onclick="ccDownloadCSV()" style="font-size:11px;padding:4px 10px;">CSV</button>
+                </div>
+              </div>
+              <table class="cc-results-table" id="cc-results-table">
+                <thead>
+                  <tr>
+                    <th style="width:20px;"></th>
+                    <th>Candidatura</th>
+                    <th>Votos (%válidos)</th>
+                    <th>Escaños</th>
+                    <th>V/E</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="cc-results-body"></tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Right: Hemiciclo -->
+          <div>
+            <div class="cc-card">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <select class="cc-sel" id="cc-chart-type" onchange="ccDrawHemiciclo()" style="font-size:11px;padding:4px 8px;">
+                    <option value="parlamento">Parlamento genérico</option>
+                  </select>
+                </div>
+                <div style="display:flex;gap:5px;">
+                  <button class="cc-btn cc-btn-secondary" onclick="ccOpenChartConfig()" style="font-size:11px;padding:4px 8px;" title="Configurar orden">✏️</button>
+                  <button class="cc-btn cc-btn-green" style="font-size:11px;padding:4px 10px;" onclick="ccDownloadHemiciclo()">Descargar</button>
+                </div>
+              </div>
+              <div class="cc-hemiciclo-wrap" id="cc-hemi-wrap" style="position:relative;min-height:200px;">
+                <svg id="cc-hemi-svg" width="100%" viewBox="0 0 500 280" style="max-height:280px;"></svg>
+                <div class="cc-hemi-tooltip" id="cc-hemi-tooltip"></div>
+              </div>
+              <div id="cc-hemi-legend" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-size:11px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═ TAB: CIRCUNSCRIPCIONES ═ -->
+      <div id="cctab-circunscripciones" class="cc-panel">
+        <div class="cc-circ-layout">
+          <!-- Sidebar -->
+          <div class="cc-circ-sidebar">
+            <div style="display:flex;gap:5px;margin-bottom:8px;">
+              <button class="cc-btn cc-btn-green" onclick="ccAddDistrict()" style="flex:1;justify-content:center;font-size:11px;padding:5px;">+ Añadir</button>
+              <button class="cc-btn cc-btn-danger" onclick="ccDeleteDistrict()" style="flex:1;justify-content:center;font-size:11px;padding:5px;">Eliminar</button>
+            </div>
+            <input class="cc-search" id="cc-circ-search" placeholder="🔍 Buscar..." oninput="ccRenderCircSidebar()">
+            <div id="cc-circ-list"></div>
+          </div>
+          <!-- Main district content -->
+          <div class="cc-circ-main" id="cc-circ-main-area">
+            <div style="color:var(--text3);text-align:center;padding:60px 20px;">Selecciona una circunscripción</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═ TAB: PACTÓMETRO ═ -->
+      <div id="cctab-pactometro" class="cc-panel">
+        <div class="cc-pacto-layout">
+          <div>
+            <div class="cc-card">
+              <div class="cc-card-title">Seleccionar todos:</div>
+              <div style="display:flex;gap:10px;margin-bottom:14px;">
+                <button class="cc-btn cc-btn-secondary" onclick="ccPactoAll('si')" style="font-size:11px;">✓ Sí</button>
+                <button class="cc-btn cc-btn-secondary" onclick="ccPactoAll('abs')" style="font-size:11px;">? Abs.</button>
+                <button class="cc-btn cc-btn-secondary" onclick="ccPactoAll('no')" style="font-size:11px;">✗ No</button>
+              </div>
+              <div id="cc-pacto-cards" style="display:flex;flex-direction:column;gap:8px;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="cc-card">
+              <div id="cc-pacto-hemi-wrap">
+                <svg id="cc-pacto-hemi" width="100%" viewBox="0 0 500 300" style="max-height:260px;"></svg>
+              </div>
+              <div id="cc-pacto-bar-row" style="margin:8px 0;">
+                <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:4px;">
+                  <span style="color:#4caf50;">SÍ: <span id="cc-pacto-si-count">0</span></span>
+                  <span style="color:var(--text3);" id="cc-pacto-mayoria-label">Mayoría absoluta (—)</span>
+                  <span style="color:#ef5350;">NO: <span id="cc-pacto-no-count">0</span></span>
+                </div>
+                <div class="cc-bar-wrap">
+                  <div id="cc-pacto-bar-si" style="background:linear-gradient(90deg,#4f8ef7,#2563eb);height:100%;transition:width .3s;min-width:0;"></div>
+                  <div id="cc-pacto-bar-abs" style="background:linear-gradient(90deg,#e3b341,#b8900d);height:100%;transition:width .3s;min-width:0;"></div>
+                  <div id="cc-pacto-bar-no" style="background:linear-gradient(90deg,#ef5350,#b71c1c);height:100%;transition:width .3s;min-width:0;flex:1;"></div>
+                  <div id="cc-pacto-bar-marker" style="position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,.8);"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:4px;">
+                  <span id="cc-pacto-left-val">0</span>
+                  <span id="cc-pacto-center-val">—</span>
+                  <span id="cc-pacto-right-val">0</span>
+                </div>
+              </div>
+              <div id="cc-pacto-result-msg" class="cc-result-msg" style="display:none;"></div>
+              <div style="font-size:10px;color:var(--text3);margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#2563eb;display:inline-block;"></span>Sí</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#e3b341;display:inline-block;"></span>Abstención</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#ef5350;display:inline-block;"></span>No</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#888;display:inline-block;"></span>Sin voto</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═ TAB: UTILIDADES ═ -->
+      <div id="cctab-utilidades" class="cc-panel">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <!-- Transferir votos -->
+          <div class="cc-card">
+            <div class="cc-card-title">🔀 Transferir votos</div>
+            <div class="cc-field"><label>Porcentaje de votos (%)</label>
+              <input type="number" class="cc-sel" id="cc-transf-pct" placeholder="52.4" min="0" max="100" step="0.1" style="width:100%;">
+            </div>
+            <div class="cc-field"><label>De:</label>
+              <select class="cc-sel" id="cc-transf-from" style="width:100%;"></select>
+            </div>
+            <div class="cc-field"><label>A:</label>
+              <select class="cc-sel" id="cc-transf-to" style="width:100%;"></select>
+            </div>
+            <div class="cc-field"><label>Circunscripciones (Ctrl para varios):</label>
+              <select multiple class="cc-select-multi" id="cc-transf-districts"></select>
+            </div>
+            <div class="cc-checkbox-row">
+              <input type="checkbox" id="cc-transf-only-present">
+              <label for="cc-transf-only-present">Transferir exclusivamente donde el segundo partido esté presente</label>
+            </div>
+            <button class="cc-btn cc-btn-primary" onclick="ccTransferirVotos()" style="width:100%;justify-content:center;">Transferir votos</button>
+          </div>
+
+          <!-- Aumentar votos -->
+          <div class="cc-card">
+            <div class="cc-card-title">📈 Aumentar votos</div>
+            <div class="cc-field"><label>Candidatura:</label>
+              <select class="cc-sel" id="cc-incr-party" style="width:100%;"></select>
+            </div>
+            <div class="cc-field"><label>Circunscripciones (Ctrl para varios):</label>
+              <select multiple class="cc-select-multi" id="cc-incr-districts"></select>
+            </div>
+            <div class="cc-field"><label>Porcentaje de votos (%):</label>
+              <input type="number" class="cc-sel" id="cc-incr-pct" placeholder="52.4" min="0" max="1000" step="0.1" style="width:100%;">
+            </div>
+            <button class="cc-btn cc-btn-primary" onclick="ccIncrementarVotos()" style="width:100%;justify-content:center;margin-top:8px;">Incrementar</button>
+          </div>
+
+          <!-- Fusionar partidos -->
+          <div class="cc-card">
+            <div class="cc-card-title">🔗 Fusionar partidos</div>
+            <div class="cc-field"><label>Candidaturas (Ctrl para varios):</label>
+              <select multiple class="cc-select-multi" id="cc-merge-parties"></select>
+            </div>
+            <div class="cc-field"><label>Nombre</label>
+              <input type="text" class="cc-sel" id="cc-merge-name" placeholder="Nombre" style="width:100%;">
+            </div>
+            <div class="cc-field"><label>Siglas</label>
+              <input type="text" class="cc-sel" id="cc-merge-acronym" placeholder="Siglas" style="width:100%;">
+            </div>
+            <div class="cc-field"><label>Color</label>
+              <div style="display:flex;gap:8px;">
+                <input type="text" class="cc-sel" id="cc-merge-color" value="#000000" style="flex:1;" oninput="document.getElementById('cc-merge-color-prev').style.background=this.value">
+                <div id="cc-merge-color-prev" class="cc-color-preview" style="background:#000000;" onclick="document.getElementById('cc-merge-color-pick').click()"></div>
+                <input type="color" id="cc-merge-color-pick" style="display:none;" oninput="document.getElementById('cc-merge-color').value=this.value;document.getElementById('cc-merge-color-prev').style.background=this.value;">
+              </div>
+            </div>
+            <button class="cc-btn cc-btn-primary" onclick="ccFusionarPartidos()" style="width:100%;justify-content:center;">Fusionar</button>
+          </div>
+
+          <!-- Fusionar circunscripciones -->
+          <div class="cc-card">
+            <div class="cc-card-title">🗺️ Fusionar circunscripciones</div>
+            <div class="cc-field"><label>Circunscripciones (Ctrl para varios):</label>
+              <select multiple class="cc-select-multi" id="cc-merge-districts"></select>
+            </div>
+            <div class="cc-field"><label>Nombre</label>
+              <input type="text" class="cc-sel" id="cc-merge-dist-name" placeholder="Nombre" style="width:100%;">
+            </div>
+            <button class="cc-btn cc-btn-primary" onclick="ccFusionarCircunscripciones()" style="width:100%;justify-content:center;margin-top:8px;">Fusionar</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- end calcamp-wrapper -->
+
+    <!-- ── MODALS ── -->
+    <!-- Edit party modal -->
+    <div class="cc-modal-overlay" id="cc-modal-party">
+      <div class="cc-modal">
+        <button class="cc-modal-close" onclick="ccCloseModal('cc-modal-party')">×</button>
+        <div class="cc-modal-title" id="cc-modal-party-title">Editar candidatura</div>
+        <input type="hidden" id="cc-modal-party-id">
+        <div class="cc-field"><label>Nombre</label><input type="text" id="cc-modal-pname" placeholder="Partido Popular" style="width:100%;"></div>
+        <div class="cc-field"><label>Logo</label>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <input type="file" id="cc-modal-plogo" accept="image/*" style="font-size:12px;">
+            <img id="cc-modal-plogo-preview" style="width:32px;height:32px;object-fit:contain;border-radius:4px;border:1px solid var(--border);display:none;">
+          </div>
+          <div style="font-size:10px;color:var(--text3);margin-top:4px;">Sube el logotipo. Se redimensionará a máximo 16x16 píxeles.</div>
+        </div>
+        <div class="cc-field"><label>Siglas</label><input type="text" id="cc-modal-pacronym" placeholder="PP" style="width:100%;"></div>
+        <div class="cc-field"><label>Color</label>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="cc-modal-pcolor" style="flex:1;" oninput="document.getElementById('cc-modal-pcolor-prev').style.background=this.value">
+            <div id="cc-modal-pcolor-prev" class="cc-color-preview" style="background:#0056a1;" onclick="document.getElementById('cc-modal-pcolor-pick').click()"></div>
+            <input type="color" id="cc-modal-pcolor-pick" style="display:none;" oninput="document.getElementById('cc-modal-pcolor').value=this.value;document.getElementById('cc-modal-pcolor-prev').style.background=this.value;">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="cc-btn cc-btn-secondary" onclick="ccCloseModal('cc-modal-party')">Cerrar</button>
+          <button class="cc-btn cc-btn-primary" onclick="ccSaveParty()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Library modal -->
+    <div class="cc-modal-overlay" id="cc-modal-library">
+      <div class="cc-modal" style="max-width:560px;">
+        <button class="cc-modal-close" onclick="ccCloseModal('cc-modal-library')">×</button>
+        <div class="cc-modal-title">📚 Biblioteca</div>
+        <input class="cc-search" id="cc-library-search" placeholder="🔍 Buscar elección..." oninput="ccFilterLibrary()" style="margin-bottom:10px;">
+        <div class="cc-library-list" id="cc-library-list"></div>
+      </div>
+    </div>
+
+    <!-- CSV Options modal -->
+    <div class="cc-modal-overlay" id="cc-modal-csv">
+      <div class="cc-modal" style="max-width:440px;">
+        <button class="cc-modal-close" onclick="ccCloseModal('cc-modal-csv')">×</button>
+        <div class="cc-modal-title">Descargar como .csv</div>
+        <div style="background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);border-radius:8px;padding:12px;font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+          Esta utilidad exporta los datos en un fichero .CSV que usa punto y coma (;) como separador de campos y comillas dobles (") como delimitador de texto. Esto es compatible con Excel y otros programas de hojas de cálculo.
+        </div>
+        <div class="cc-checkbox-row"><input type="checkbox" id="cc-csv-blank"><label for="cc-csv-blank">Incluir votos en blanco</label></div>
+        <div class="cc-checkbox-row"><input type="checkbox" id="cc-csv-null"><label for="cc-csv-null">Incluir votos nulos</label></div>
+        <div class="cc-checkbox-row"><input type="checkbox" id="cc-csv-census"><label for="cc-csv-census">Incluir censo electoral</label></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="cc-btn cc-btn-secondary" onclick="ccCloseModal('cc-modal-csv')">Cerrar</button>
+          <button class="cc-btn cc-btn-primary" onclick="ccDoDownloadCSV()">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart config modal -->
+    <div class="cc-modal-overlay" id="cc-modal-chart-cfg">
+      <div class="cc-modal" style="max-width:420px;">
+        <button class="cc-modal-close" onclick="ccCloseModal('cc-modal-chart-cfg')">×</button>
+        <div class="cc-modal-title">Configuración de la gráfica</div>
+        <div class="cc-field"><label>Tipo de orden</label>
+          <select class="cc-sel" id="cc-chart-order" style="width:100%;" onchange="ccToggleCustomOrder()">
+            <option value="seats">Escaños</option>
+            <option value="votes">Votos</option>
+            <option value="custom">Personalizado</option>
+          </select>
+        </div>
+        <!-- Custom order drag-and-drop list -->
+        <div id="cc-custom-order-section" style="display:none;margin-top:10px;">
+          <label style="display:block;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Arrastra para ordenar los partidos</label>
+          <div id="cc-custom-order-list" style="display:flex;flex-direction:column;gap:4px;max-height:320px;overflow-y:auto;padding:2px;"></div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="cc-btn cc-btn-secondary" onclick="ccCloseModal('cc-modal-chart-cfg')">Cerrar</button>
+          <button class="cc-btn cc-btn-primary" onclick="ccSaveChartCfg()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit votes modal (inline vote edit) -->
+    <div class="cc-modal-overlay" id="cc-modal-votes">
+      <div class="cc-modal" style="max-width:340px;">
+        <button class="cc-modal-close" onclick="ccCloseModal('cc-modal-votes')">×</button>
+        <div class="cc-modal-title">Número de votos</div>
+        <input type="hidden" id="cc-modal-votes-pid">
+        <input type="hidden" id="cc-modal-votes-did">
+        <div class="cc-field"><label>Votos</label>
+          <input type="number" class="cc-sel" id="cc-modal-votes-val" min="0" style="width:100%;">
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="cc-btn cc-btn-danger" onclick="ccCloseModal('cc-modal-votes')">✗</button>
+          <button class="cc-btn cc-btn-primary" onclick="ccSaveVotes()">✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add district modal -->
+    <div class="cc-modal-overlay" id="cc-modal-add-district">
+      <div class="cc-modal" style="max-width:380px;">
+        <button class="cc-modal-close" onclick="ccCloseModal('cc-modal-add-district')">×</button>
+        <div class="cc-modal-title">Añadir circunscripción</div>
+        <div class="cc-field"><label>Nombre</label><input type="text" id="cc-add-dist-name" placeholder="Nombre" style="width:100%;"></div>
+        <div class="cc-field"><label>Escaños</label><input type="number" id="cc-add-dist-seats" value="10" min="1" style="width:100%;"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="cc-btn cc-btn-secondary" onclick="ccCloseModal('cc-modal-add-district')">Cerrar</button>
+          <button class="cc-btn cc-btn-primary" onclick="ccConfirmAddDistrict()">Añadir</button>
+        </div>
+      </div>
+    </div>
+
+    
+    </div><!-- end panel-calcamp -->
+
+
+    <!-- ═══ PANEL: ENCUESTAS ═══ -->
+    <div id="panel-encuestas" class="tool-panel">
+        <div class="ph">
+            <div class="pt">Análisis de Encuestas</div>
+            <div class="ps">Aprende a leer, interpretar y criticar encuestas electorales como un analista profesional</div>
+        </div>
+        <div class="el">
+            <div id="lessons-container"></div>
+            <div>
+                <!-- SELECTOR DE SIMULADOR -->
+                <div class="card" style="margin-bottom:14px;">
+                    <div class="stitle" style="margin-bottom:8px;">Seleccionar simulador de tendencias</div>
+                    <select id="trend-sim-selector" class="if" style="width:100%;padding:7px 10px;font-size:12px;" onchange="switchTrendSim(this.value)">
+                        <optgroup label="🇪🇸 Nacional">
+                            <option value="generales">Elecciones Generales</option>
+                            <option value="europeas">Elecciones Europeas</option>
+                        </optgroup>
+                        <optgroup label="🗺️ Comunidades Autónomas">
+                            <option value="galicia">Galicia</option>
+                            <option value="asturias">Asturias</option>
+                            <option value="cantabria">Cantabria</option>
+                            <option value="paisvasco">País Vasco</option>
+                            <option value="navarra">Navarra</option>
+                            <option value="aragon">Aragón</option>
+                            <option value="cataluna">Cataluña</option>
+                            <option value="baleares">Baleares</option>
+                            <option value="canarias">Canarias</option>
+                            <option value="ceuta">Ceuta</option>
+                            <option value="melilla">Melilla</option>
+                            <option value="castillaleon">Castilla y León</option>
+                            <option value="larioja">La Rioja</option>
+                            <option value="madrid">Madrid</option>
+                            <option value="extremadura">Extremadura</option>
+                            <option value="castillamancha">Castilla-La Mancha</option>
+                            <option value="valenciana">Com. Valenciana</option>
+                            <option value="murcia">Murcia</option>
+                            <option value="andalucia">Andalucía</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <!-- SIMULADOR -->
+                <div class="card" style="border-color:rgba(79,142,247,.2);">
+                    <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px;">
+                        <span class="badge b-blue">Interactivo</span>
+                        <span style="font-size:13px;font-weight:600;" id="trend-sim-title">Simulador de tendencias — Generales</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6;">Introduce datos de varias encuestas para ver la tendencia suavizada.</p>
+                    <div id="trend-polls-list"></div>
+                    <button class="btn btn-g" onclick="addTrendPoll()" style="width:100%;justify-content:center;margin-bottom:11px;font-size:12px;">+ Añadir encuesta</button>
+                    <div style="position:relative;width:100%;height:220px;margin-bottom:11px;"><canvas id="trend-chart"></canvas></div>
+                    <button class="btn" onclick="calcularTendencia()" style="width:100%;justify-content:center;">📈 Ver tendencia</button>
+                </div>
+                <div class="card">
+                    <div class="stitle">Glosario rápido</div>
+                    <div id="glosario-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ PANEL: SISTEMAS ═══ -->
+    <div id="panel-sistemas" class="tool-panel">
+        <div class="ph">
+            <div class="pt">Sistemas Electorales</div>
+            <div class="ps">Cómo funcionan, a quién benefician y cuál es su efecto en la representación política</div>
+        </div>
+        <div class="sygrid" id="systems-grid"></div>
+        <div id="system-detail"></div>
+    </div>
+
+    <!-- ═══ PANEL: CALENDARIO ═══ -->
+    <div id="panel-calendario" class="tool-panel">
+        <div class="ph">
+            <div class="pt">Calendario Electoral 2026</div>
+            <div class="ps">Agenda política, festivos nacionales y autonómicos. Haz clic en días festivos para más info. Escribe notas directamente en cada día.</div>
+        </div>
+
+        <!-- Paginación del calendario -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <button onclick="calPage=Math.max(0,calPage-1);renderCalendar()" id="cal-prev" class="btn btn-g" style="padding:6px 14px;">← Anterior</button>
+                <span id="cal-page-label" style="font-size:13px;font-weight:600;color:var(--text2);min-width:120px;text-align:center;"></span>
+                <button onclick="calPage=Math.min(2,calPage+1);renderCalendar()" id="cal-next" class="btn btn-g" style="padding:6px 14px;">Siguiente →</button>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);"><span style="width:12px;height:12px;border-radius:3px;background:#e3b341;display:inline-block;"></span>Fin de semana</span>
+                <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);"><span style="width:12px;height:12px;border-radius:3px;background:#f85149;display:inline-block;"></span>Festivo nacional</span>
+                <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);"><span style="width:12px;height:12px;border-radius:3px;background:#388bfd;display:inline-block;"></span>Festivo autonómico</span>
+                <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);"><span style="width:12px;height:12px;border-radius:3px;background:#bc8cff;display:inline-block;"></span>Evento electoral</span>
+            </div>
+        </div>
+
+        <div id="calendar-grid" style="display:block;max-width:1100px;"></div>
+    </div>
+
+    <!-- ═══ PANEL: MAPA ELECTORAL ═══ -->
+    <div id="panel-mapaelectoral" class="tool-panel" style="padding:0;flex-direction:column;height:calc(100vh - 54px);overflow:hidden;">
+        <!-- TOOLBAR -->
+        <div id="map-toolbar" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:var(--bg2);border-bottom:1px solid var(--border);flex-wrap:wrap;flex-shrink:0;">
+            <select id="map-region-switcher" onchange="switchMapRegion(this.value)" style="background:var(--surface);color:var(--text);border:1px solid var(--border2);border-radius:7px;padding:5px 8px;font-size:12px;font-family:var(--font);cursor:pointer;height:32px;">
+              <option value="espana">🇪🇸 España</option>
+              <option value="asturias">⛏️ Asturias (3 zonas)</option>
+              <option value="baleares">⛵ Baleares (4 islas)</option>
+              <option value="canarias">🌋 Canarias (8 islas)</option>
+              <option value="galicia_prov">🌧️ Galicia (provincias)</option>
+              <option value="cantabria_r">🌊 Cantabria</option>
+              <option value="paisvasco_prov">🦁 País Vasco (provincias)</option>
+              <option value="navarra_r">🏔️ Navarra</option>
+              <option value="aragon_prov">🏹 Aragón (provincias)</option>
+              <option value="cataluna_prov">🔴 Cataluña (provincias)</option>
+              <option value="valenciana_prov">🌸 C. Valenciana (provincias)</option>
+              <option value="murcia_r">☀️ Murcia</option>
+              <option value="ceuta_r">🏙️ Ceuta</option>
+              <option value="melilla_r">🏙️ Melilla</option>
+              <option value="castillaleon_prov">🏰 Castilla y León (provincias)</option>
+              <option value="castillamancha_prov">🌾 Castilla-La Mancha (provincias)</option>
+              <option value="larioja_r">🍷 La Rioja</option>
+              <option value="extremadura_prov">🐂 Extremadura (provincias)</option>
+              <option value="andalucia_prov">🌻 Andalucía (provincias)</option>
+              <option value="madrid_r">🏟️ Madrid</option>
+            </select>
+            <button class="map-tool-btn btn-danger-soft" onclick="showMapModal('clear')">🗑️ Limpiar</button>
+            <button class="map-tool-btn" onclick="showMapModal('candidates')">👥 Candidatos</button>
+            <button class="map-tool-btn" onclick="showMapModal('custom')">🗺️ Exportar</button>
+            <button class="map-tool-btn" onclick="showMapModal('options')">⚙️ Opciones</button>
+            <button class="map-tool-btn" onclick="showMapModal('mode')" id="btn-mode-display">Modo: <strong id="map-mode-label">FILL</strong></button>
+            <button class="map-tool-btn" onclick="showMapModal('share')">🔗 Compartir</button>
+            <button class="map-tool-btn" onclick="showMapModal('theme')">🎨 Tema</button>
+            <button class="map-tool-btn" onclick="showMapModal('tools')">🛠️ Herramientas</button>
+            <button class="map-tool-btn" onclick="showMapModal('account')">👤 Cuenta</button>
+            <button class="map-tool-btn" onclick="showMapModal('shortcuts')" title="Leyenda de atajos de teclado" style="margin-left:auto;flex-shrink:0;">⌨️ Atajos</button>
+        </div>
+
+        <!-- SEAT COUNTER BAR -->
+        <div id="map-seat-bar" style="display:flex;align-items:center;gap:5px;padding:5px 14px;background:var(--bg3);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0;"></div>
+
+        <!-- MAIN: MAP + SIDEBAR -->
+        <div style="display:flex;flex:1;min-height:0;overflow:hidden;">
+            <!-- MAP AREA -->
+            <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;">
+                <div id="map-svg-container" style="flex:1;min-height:0;padding:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative;">
+                    <div id="fill-mode-indicator">✏️ Modo Rellenar — F para desactivar</div>
+                    <div id="kbd-hint-panel">
+                        <kbd>F</kbd> Rellenar (hold)<br>
+                        <kbd>Ctrl</kbd>+<kbd>F</kbd> Toggle fill<br>
+                        <kbd>R</kbd> Recentrar mapa<br>
+                        <kbd>0–9</kbd> Seleccionar candidato<br>
+                        <kbd>Rueda</kbd> Zoom<br>
+                        <kbd>Q</kbd>/<kbd>W</kbd>/<kbd>T</kbd>/<kbd>Y</kbd>/<kbd>U</kbd>/<kbd>I</kbd>/<kbd>O</kbd> Pestañas
+                    </div>
+                    <svg id="spain-map" viewBox="0 0 900 600" style="width:100%;height:100%;max-width:none;object-fit:contain;cursor:pointer;" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+                </div>
+                <!-- CHART AREA -->
+                <div id="map-chart-area" style="padding:6px 14px 8px;background:var(--bg2);border-top:1px solid var(--border);flex-shrink:0;overflow:hidden;max-height:320px;overflow-y:auto;"></div>
+            </div>
+
+            <!-- SAVED MAPS SIDEBAR -->
+            <div id="map-saved-sidebar" style="width:220px;flex-shrink:0;background:var(--bg3);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;">
+                <div style="padding:10px 12px 6px;border-bottom:1px solid var(--border);flex-shrink:0;">
+                    <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;">💾 Mapas guardados</div>
+                    <!-- Search bar -->
+                    <div style="display:flex;align-items:center;background:var(--surface);border:1px solid var(--border2);border-radius:7px;padding:4px 8px;gap:6px;margin-bottom:7px;">
+                        <span style="font-size:12px;color:var(--text3);">🔍</span>
+                        <input id="saved-maps-search" placeholder="Buscar mapa..." style="background:none;border:none;outline:none;font-size:11px;color:var(--text);width:100%;font-family:var(--font);" oninput="renderSavedMapsSidebar()">
+                    </div>
+                    <div style="display:flex;gap:5px;margin-bottom:6px;">
+                        <input class="if" id="save-map-name-sidebar" placeholder="Nombre..." style="flex:1;padding:5px 8px;font-size:11px;">
+                        <button class="map-tool-btn" style="padding:5px 8px;font-size:11px;" onclick="saveCurrentMap()">+</button>
+                    </div>
+                    <div style="display:flex;gap:5px;">
+                        <button class="map-tool-btn" style="flex:1;font-size:10px;padding:4px 6px;" onclick="exportMapsBackup()" title="Descargar copia de seguridad JSON">⬇ Exportar</button>
+                        <label class="map-tool-btn" style="flex:1;font-size:10px;padding:4px 6px;cursor:pointer;text-align:center;" title="Restaurar desde fichero JSON">⬆ Cargar<input type="file" accept=".json" style="display:none;" onchange="importMapsBackup(event)"></label>
+                    </div>
+                    <button class="map-tool-btn" style="width:100%;margin-top:5px;font-size:10px;padding:5px 6px;color:var(--text2);border-style:dashed;" onclick="newBlankMap()" title="Limpiar el mapa actual y empezar desde cero">✕ Nuevo mapa en blanco</button>
+                </div>
+                <div id="saved-maps-list" style="flex:1;overflow-y:auto;padding:6px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ PANEL: RANKING POR PARTIDOS ═══ -->
+    <div id="panel-rankingpartidos" class="tool-panel">
+        <div class="ph" style="margin-bottom:10px;">
+            <div class="pt">🎖️ Partidos Nacionales por Comunidad Autónoma</div>
+            <div class="ps" id="rp-panel-subtitle">Selecciona el tipo de elección y un partido para ver su clasificación</div>
+        </div>
+
+        <!-- SELECTOR TIPO ELECCIÓN -->
+        <div style="display:flex;gap:8px;margin-bottom:18px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;" id="rp-tipo-selector">
+            <button id="rp-btn-autonomicas" onclick="rpSetTipo('autonomicas',this)"
+              style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🏛️ Autonómicas
+            </button>
+            <button id="rp-btn-generales" onclick="rpSetTipo('generales',this)"
+              style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🇪🇸 Generales
+            </button>
+            <button id="rp-btn-europeas" onclick="rpSetTipo('europeas',this)"
+              style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🇪🇺 Europeas
+            </button>
+        </div>
+
+        <!-- SELECTOR DE PARTIDO -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;" id="partido-selector-btns"></div>
+
+        <!-- PODIO TOP 3 -->
+        <div id="rp-top3-preview" style="display:flex;justify-content:center;gap:16px;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;"></div>
+
+        <!-- LISTA COMPLETA -->
+        <div class="card" style="padding:0;overflow:hidden;">
+            <div style="padding:14px 18px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+                <div class="stitle" style="margin:0;" id="rp-list-title">Clasificación completa</div>
+                <span style="font-size:11px;color:var(--text3);" id="rp-list-subtitle">Selecciona un partido arriba</span>
+            </div>
+            <div id="rp-ranking-list" style="padding:8px 0;">
+                <div style="text-align:center;padding:40px;color:var(--text3);font-size:13px;">← Selecciona un partido para ver su ranking</div>
+            </div>
+        </div>
+
+        <!-- PODIO FINAL VISUAL -->
+        <div style="margin-top:32px;" id="rp-podium-section">
+            <div class="stitle" style="text-align:center;margin-bottom:24px;font-size:11px;letter-spacing:2px;" id="rp-podium-title">🥇 PODIO 🥇</div>
+            <div id="rp-ranking-podium" style="display:flex;justify-content:center;align-items:flex-end;gap:0;max-width:700px;margin:0 auto 20px;"></div>
+        </div>
+    </div>
+
+
+    <!-- ═══ PANEL: RANKING POR PROVINCIAS ═══ -->
+    <div id="panel-rankingprovincias" class="tool-panel">
+        <div class="ph" style="margin-bottom:10px;">
+            <div class="pt">🗺️ Partidos Nacionales por Provincia</div>
+            <div class="ps" id="rpp-panel-subtitle">Selecciona el tipo de elección y un partido para ver la clasificación por provincias</div>
+        </div>
+
+        <!-- SELECTOR TIPO ELECCIÓN -->
+        <div style="display:flex;gap:8px;margin-bottom:18px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;" id="rpp-tipo-selector">
+            <button id="rpp-btn-autonomicas" onclick="rppSetTipo('autonomicas',this)"
+              style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🏛️ Autonómicas
+            </button>
+            <button id="rpp-btn-generales" onclick="rppSetTipo('generales',this)"
+              style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🇪🇸 Generales
+            </button>
+            <button id="rpp-btn-europeas" onclick="rppSetTipo('europeas',this)"
+              style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🇪🇺 Europeas
+            </button>
+        </div>
+
+        <!-- SELECTOR DE PARTIDO -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;" id="rpp-partido-selector-btns"></div>
+
+        <!-- FILTRO POR CCAA -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px;flex-wrap:wrap;">
+            <span style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);white-space:nowrap;">Filtrar por CCAA</span>
+            <select id="rpp-ccaa-filter" onchange="rppApplyFilter()"
+              style="background:var(--bg4);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:12px;padding:7px 12px;border-radius:8px;cursor:pointer;outline:none;min-width:200px;">
+              <option value="">— Todas las provincias —</option>
+              <option value="andalucia">🌺 Andalucía</option>
+              <option value="aragon">🦅 Aragón</option>
+              <option value="asturias">⛏️ Asturias</option>
+              <option value="baleares">⛵ Baleares</option>
+              <option value="canarias">🌋 Canarias</option>
+              <option value="cantabria">🌊 Cantabria</option>
+              <option value="castilla_la_mancha">⚔️ Castilla-La Mancha</option>
+              <option value="castilla_y_leon">🏯 Castilla y León</option>
+              <option value="cataluna">🌹 Cataluña</option>
+              <option value="ceuta">🌉 Ceuta</option>
+              <option value="comunidad_valenciana">🍊 C. Valenciana</option>
+              <option value="extremadura">🌿 Extremadura</option>
+              <option value="galicia">🏔️ Galicia</option>
+              <option value="la_rioja">🍷 La Rioja</option>
+              <option value="madrid">🏟️ Madrid</option>
+              <option value="melilla">🕌 Melilla</option>
+              <option value="murcia">🌞 Murcia</option>
+              <option value="navarra">🏰 Navarra</option>
+              <option value="pais_vasco">🌿 País Vasco</option>
+            </select>
+            <button onclick="rppClearFilter()" id="rpp-clear-btn"
+              style="display:none;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);font-size:11px;cursor:pointer;">
+              ✕ Quitar filtro
+            </button>
+            <span id="rpp-filter-info" style="font-size:11px;color:var(--text3);"></span>
+        </div>
+
+        <!-- PODIO TOP 3 -->
+        <div id="rpp-top3-preview" style="display:flex;justify-content:center;gap:16px;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;"></div>
+
+        <!-- LISTA COMPLETA -->
+        <div class="card" style="padding:0;overflow:hidden;">
+            <div style="padding:14px 18px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+                <div class="stitle" style="margin:0;" id="rpp-list-title">Clasificación por provincias</div>
+                <span style="font-size:11px;color:var(--text3);" id="rpp-list-subtitle">Selecciona un partido arriba</span>
+            </div>
+            <div id="rpp-ranking-list" style="padding:8px 0;">
+                <div style="text-align:center;padding:40px;color:var(--text3);font-size:13px;">← Selecciona un partido para ver su ranking provincial</div>
+            </div>
+        </div>
+
+        <!-- PODIO FINAL VISUAL -->
+        <div style="margin-top:32px;" id="rpp-podium-section">
+            <div class="stitle" style="text-align:center;margin-bottom:24px;font-size:11px;letter-spacing:2px;" id="rpp-podium-title">🥇 PODIO PROVINCIAL 🥇</div>
+            <div id="rpp-ranking-podium" style="display:flex;justify-content:center;align-items:flex-end;gap:0;max-width:700px;margin:0 auto 20px;"></div>
+        </div>
+    </div>
+
+
+    <!-- ═══ PANEL: GANADOR POR CIRCUNSCRIPCIÓN ═══ -->
+    <div id="panel-ganadores" class="tool-panel">
+      <div class="ph" style="margin-bottom:10px;">
+        <div class="pt">🏆 ¿Quién Ganó Dónde?</div>
+        <div class="ps">Partido ganador en cada circunscripción · Compara entre tipos de elección</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;">
+        <button id="gan-btn-autonomicas" onclick="ganadoresSetTipo('autonomicas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🏛️ Autonómicas</button>
+        <button id="gan-btn-generales" onclick="ganadoresSetTipo('generales',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇸 Generales</button>
+        <button id="gan-btn-europeas" onclick="ganadoresSetTipo('europeas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇺 Europeas</button>
+      </div>
+      <!-- Summary badges -->
+      <div id="gan-summary" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;"></div>
+      <!-- Full list -->
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="padding:14px 18px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+          <div class="stitle" style="margin:0;" id="gan-list-title">Ganadores por circunscripción</div>
+          <input id="gan-search" oninput="ganadoresFilter()" placeholder="🔍 Buscar provincia..." style="background:var(--bg4);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:var(--font);font-size:12px;padding:6px 10px;outline:none;width:200px;">
+        </div>
+        <div id="gan-list" style="padding:8px 0;max-height:600px;overflow-y:auto;"></div>
+      </div>
+    </div>
+
+    <!-- ═══ PANEL: EVOLUCIÓN ENTRE ELECCIONES ═══ -->
+    <div id="panel-evolucion" class="tool-panel">
+      <div class="ph" style="margin-bottom:10px;">
+        <div class="pt">📈 Evolución Electoral por Provincia</div>
+        <div class="ps">Compara el resultado de un partido en Autonómicas → Generales → Europeas</div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center;">
+        <div style="flex:1;min-width:200px;">
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);display:block;margin-bottom:6px;">Provincia</label>
+          <select id="evo-prov-sel" onchange="evolucionRender()" style="width:100%;background:var(--bg4);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;border-radius:8px;cursor:pointer;outline:none;"></select>
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);display:block;margin-bottom:6px;">Partido</label>
+          <select id="evo-party-sel" onchange="evolucionRender()" style="width:100%;background:var(--bg4);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;border-radius:8px;cursor:pointer;outline:none;"></select>
+        </div>
+      </div>
+      <div id="evo-chart-wrap" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;">
+        <canvas id="evo-canvas" height="280"></canvas>
+      </div>
+      <div id="evo-summary-cards" style="display:flex;gap:12px;flex-wrap:wrap;"></div>
+    </div>
+
+    <!-- ═══ PANEL: CAMBIO DE VOTO ═══ -->
+    <div id="panel-deltavoto" class="tool-panel">
+      <div class="ph" style="margin-bottom:10px;">
+        <div class="pt">↕️ Cambio de Voto entre Elecciones</div>
+        <div class="ps">Provincias donde un partido más subió o bajó entre dos citas electorales</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center;">
+        <div style="background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;display:flex;gap:4px;">
+          <button id="dv-btn-aut-gen" onclick="deltaSetPair('aut-gen',this)" style="padding:8px 14px;border-radius:7px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Aut → Gen</button>
+          <button id="dv-btn-gen-eur" onclick="deltaSetPair('gen-eur',this)" style="padding:8px 14px;border-radius:7px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Gen → Eur</button>
+          <button id="dv-btn-aut-eur" onclick="deltaSetPair('aut-eur',this)" style="padding:8px 14px;border-radius:7px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Aut → Eur</button>
+        </div>
+        <div id="dv-party-btns" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+      </div>
+      <!-- Top gainers / losers -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:#4caf50;">🚀 Mayor subida</div>
+          <div id="dv-gainers" style="padding:8px 0;"></div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:#ef5350;">📉 Mayor bajada</div>
+          <div id="dv-losers" style="padding:8px 0;"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="padding:14px 18px 10px;border-bottom:1px solid var(--border);">
+          <div class="stitle" style="margin:0;" id="dv-full-title">Ranking completo de cambio</div>
+        </div>
+        <div id="dv-full-list" style="padding:8px 0;max-height:500px;overflow-y:auto;"></div>
+      </div>
+    </div>
+
+    <!-- ═══ PANEL: BRECHA TERRITORIAL ═══ -->
+    <div id="panel-brecha" class="tool-panel">
+      <div class="ph" style="margin-bottom:10px;">
+        <div class="pt">📏 Brecha Territorial</div>
+        <div class="ps">Diferencia entre el mejor y peor resultado de cada partido · Mide cuánto varía su voto por territorio</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;">
+        <button id="br-btn-autonomicas" onclick="brechaSetTipo('autonomicas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🏛️ Autonómicas</button>
+        <button id="br-btn-generales" onclick="brechaSetTipo('generales',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇸 Generales</button>
+        <button id="br-btn-europeas" onclick="brechaSetTipo('europeas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇺 Europeas</button>
+      </div>
+      <div id="br-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <!-- ═══ PANEL: POLARIZACIÓN ═══ -->
+    <div id="panel-polarizacion" class="tool-panel">
+      <div class="ph" style="margin-bottom:10px;">
+        <div class="pt">⚡ Polarización Electoral</div>
+        <div class="ps">Circunscripciones más y menos competitivas · Cuanto mayor la brecha entre 1.º y 2.º, más "decidida" la provincia</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;">
+        <button id="pol-btn-autonomicas" onclick="polarizSetTipo('autonomicas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🏛️ Autonómicas</button>
+        <button id="pol-btn-generales" onclick="polarizSetTipo('generales',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇸 Generales</button>
+        <button id="pol-btn-europeas" onclick="polarizSetTipo('europeas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇺 Europeas</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:var(--accent);">🔥 Más polarizadas (mayor brecha)</div>
+          <div id="pol-top" style="padding:8px 0;"></div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:var(--gold);">⚖️ Más competitivas (menor brecha)</div>
+          <div id="pol-bottom" style="padding:8px 0;"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="padding:14px 18px 10px;border-bottom:1px solid var(--border);"><div class="stitle" style="margin:0;" id="pol-full-title">Ranking completo</div></div>
+        <div id="pol-full-list" style="padding:8px 0;max-height:500px;overflow-y:auto;"></div>
+      </div>
+    </div>
+
+    <!-- ═══ PANEL: COMPARADOR DOS PARTIDOS ═══ -->
+    <div id="panel-comparador" class="tool-panel">
+      <div class="ph" style="margin-bottom:10px;">
+        <div class="pt">🔬 Comparador de Dos Partidos</div>
+        <div class="ps">Diagrama de dispersión · Cada punto es una provincia · Ver correlaciones y patrones territoriales</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;">
+        <button id="cmp2-btn-autonomicas" onclick="comp2SetTipo('autonomicas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🏛️ Autonómicas</button>
+        <button id="cmp2-btn-generales" onclick="comp2SetTipo('generales',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇸 Generales</button>
+        <button id="cmp2-btn-europeas" onclick="comp2SetTipo('europeas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇺 Europeas</button>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+        <div style="flex:1;min-width:180px;">
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);display:block;margin-bottom:6px;">Partido A (eje X)</label>
+          <select id="cmp2-party-a" onchange="comp2Render()" style="width:100%;background:var(--bg4);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;border-radius:8px;cursor:pointer;outline:none;"></select>
+        </div>
+        <div style="flex:1;min-width:180px;">
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);display:block;margin-bottom:6px;">Partido B (eje Y)</label>
+          <select id="cmp2-party-b" onchange="comp2Render()" style="width:100%;background:var(--bg4);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;padding:9px 12px;border-radius:8px;cursor:pointer;outline:none;"></select>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;">
+        <canvas id="cmp2-canvas" height="420" style="max-width:100%;"></canvas>
+      </div>
+      <div id="cmp2-insights" style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;"></div>
+    </div>
+
+    <!-- ═══ PANEL: IZQUIERDA VS DERECHA ═══ -->
+    <div id="panel-izqder" class="tool-panel">
+      <div class="ph" style="margin-bottom:10px;">
+        <div class="pt">⚖️ Izquierda vs Derecha por Provincia</div>
+        <div class="ps">Suma de voto de bloques ideológicos en cada circunscripción · Análisis comparado</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;">
+        <button id="ld-btn-autonomicas" onclick="izqderSetTipo('autonomicas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🏛️ Autonómicas</button>
+        <button id="ld-btn-generales" onclick="izqderSetTipo('generales',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇸 Generales</button>
+        <button id="ld-btn-europeas" onclick="izqderSetTipo('europeas',this)" style="flex:1;padding:9px 14px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;">🇪🇺 Europeas</button>
+      </div>
+      <!-- Summary -->
+      <div id="ld-summary" style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;"></div>
+      <!-- Filter -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <button onclick="izqderFilter('all')" id="ld-f-all" style="padding:7px 14px;border-radius:7px;border:1px solid var(--border);background:var(--accent);color:#fff;font-family:var(--font);font-size:11px;cursor:pointer;">Todas</button>
+        <button onclick="izqderFilter('left')" id="ld-f-left" style="padding:7px 14px;border-radius:7px;border:1px solid var(--border);background:transparent;color:#ef5350;font-family:var(--font);font-size:11px;cursor:pointer;">🔴 Gana izquierda</button>
+        <button onclick="izqderFilter('right')" id="ld-f-right" style="padding:7px 14px;border-radius:7px;border:1px solid var(--border);background:transparent;color:#1565c0;font-family:var(--font);font-size:11px;cursor:pointer;">🔵 Gana derecha</button>
+      </div>
+      <div id="ld-list" style="display:flex;flex-direction:column;gap:6px;"></div>
+    </div>
+
+
+
+    <div id="panel-ranking" class="tool-panel">
+        <div class="ph" style="margin-bottom:10px;">
+            <div class="pt">🏆 Ranking de Presidentes Autonómicos</div>
+            <div class="ps">Clasificados de mayor a menor apoyo electoral · Resultados en primera vuelta o elección autonómica más reciente</div>
+        </div>
+
+        <!-- TOP 3 PODIO PEQUEÑO -->
+        <div id="ranking-top3-preview" style="display:flex;justify-content:center;gap:16px;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;"></div>
+
+        <!-- LISTA COMPLETA -->
+        <div class="card" style="padding:0;overflow:hidden;">
+            <div style="padding:14px 18px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+                <div class="stitle" style="margin:0;">Clasificación completa</div>
+                <span style="font-size:11px;color:var(--text3);">Datos de la última convocatoria electoral de cada comunidad</span>
+            </div>
+            <div id="ranking-list" style="padding:8px 0;"></div>
+        </div>
+
+        <!-- PODIO FINAL VISUAL -->
+        <div style="margin-top:32px;">
+            <div class="stitle" style="text-align:center;margin-bottom:24px;font-size:11px;letter-spacing:2px;">🥇 PODIO GANADORES 🥇</div>
+            <div id="ranking-podium" style="display:flex;justify-content:center;align-items:flex-end;gap:0;max-width:700px;margin:0 auto 20px;"></div>
+        </div>
+    </div>
+
+    <!-- ═══ PANEL: RECURSOS ═══ -->
+    <div id="panel-recursos" class="tool-panel">
+        <div class="ph" style="margin-bottom:16px;">
+            <div class="pt">🔗 Recursos por Partido</div>
+            <div class="ps">Accede a programas electorales, redes sociales y webs oficiales de cada partido</div>
+        </div>
+
+        <!-- SELECTOR TIPO ELECCIÓN -->
+        <div style="display:flex;gap:8px;margin-bottom:22px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;padding:4px;">
+            <button id="recursos-btn-generales" onclick="recursosSetTipo('generales',this)"
+              style="flex:1;padding:10px 16px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🇪🇸 Elecciones Generales
+            </button>
+            <button id="recursos-btn-autonomicas" onclick="recursosSetTipo('autonomicas',this)"
+              style="flex:1;padding:10px 16px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🏛️ Elecciones Autonómicas
+            </button>
+        </div>
+
+        <!-- SUB-PANEL GENERALES -->
+        <div id="recursos-panel-generales">
+            <div class="stitle" style="margin-bottom:12px;">Selecciona un partido</div>
+            <div id="recursos-generales-btns" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;"></div>
+            <div id="recursos-generales-links"></div>
+        </div>
+
+        <!-- SUB-PANEL AUTONÓMICAS -->
+        <div id="recursos-panel-autonomicas" style="display:none;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);white-space:nowrap;">Comunidad</span>
+                <select id="recursos-ccaa-sel" onchange="recursosLoadCCAA(this.value)"
+                  style="background:var(--bg4);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;padding:8px 14px;border-radius:7px;cursor:pointer;flex:1;max-width:320px;outline:none;">
+                    <option value="">— Selecciona una comunidad —</option>
+                    <option value="galicia">🏔️ Galicia</option>
+                    <option value="asturias">⛏️ Asturias</option>
+                    <option value="cantabria">🌊 Cantabria</option>
+                    <option value="pais_vasco">🌿 País Vasco</option>
+                    <option value="navarra">🏰 Navarra</option>
+                    <option value="aragon">🦅 Aragón</option>
+                    <option value="cataluna">🌹 Cataluña</option>
+                    <option value="baleares">⛵ Islas Baleares</option>
+                    <option value="canarias">🌋 Canarias</option>
+                    <option value="ceuta">🌉 Ceuta</option>
+                    <option value="melilla">🕌 Melilla</option>
+                    <option value="castilla_y_leon">🏯 Castilla y León</option>
+                    <option value="la_rioja">🍷 La Rioja</option>
+                    <option value="madrid">🏟️ Madrid</option>
+                    <option value="extremadura">🌿 Extremadura</option>
+                    <option value="castilla_la_mancha">⚔️ Castilla-La Mancha</option>
+                    <option value="comunidad_valenciana">🍊 C. Valenciana</option>
+                    <option value="murcia">🌞 Murcia</option>
+                    <option value="andalucia">🌺 Andalucía</option>
+                </select>
+            </div>
+            <div id="recursos-aut-placeholder" style="text-align:center;padding:40px;color:var(--text3);">
+                <div style="font-size:2.5rem;margin-bottom:10px;">🏛️</div>
+                <p style="font-size:13px;">Selecciona una comunidad para ver los partidos disponibles</p>
+            </div>
+            <div id="recursos-aut-content" style="display:none;">
+                <div class="stitle" style="margin-bottom:12px;" id="recursos-aut-title">Selecciona un partido</div>
+                <div id="recursos-aut-btns" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;"></div>
+                <div id="recursos-aut-links"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ PANEL: COMPARATIVA ═══ -->
+    <div id="panel-comparativa" class="tool-panel">
+        <div class="ph" style="margin-bottom:10px;">
+            <div class="pt">📊 Comparativa Electoral</div>
+            <div class="ps">Comparación de resultados entre las dos últimas elecciones · Escaños ganados, perdidos o mantenidos por partido</div>
+        </div>
+
+        <!-- TIPO SELECTOR -->
+        <div style="display:flex;gap:6px;margin-bottom:22px;background:var(--bg4);border:1px solid var(--border);border-radius:12px;padding:5px;">
+            <button id="cmp-btn-autonomicas" onclick="cmpSetTipo('autonomicas',this)"
+              style="flex:1;padding:12px 16px;border-radius:9px;border:none;background:var(--accent);color:#fff;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🏛️ Autonómicas
+            </button>
+            <button id="cmp-btn-generales" onclick="cmpSetTipo('generales',this)"
+              style="flex:1;padding:12px 16px;border-radius:9px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🇪🇸 Generales
+            </button>
+            <button id="cmp-btn-europeas" onclick="cmpSetTipo('europeas',this)"
+              style="flex:1;padding:12px 16px;border-radius:9px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;">
+              🇪🇺 Europeas
+            </button>
+        </div>
+
+        <!-- AUTONOMICAS SELECTOR -->
+        <div id="cmp-autonomicas-sel" style="margin-bottom:18px;">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);white-space:nowrap;">Comunidad</span>
+                <select id="cmp-ccaa-select" onchange="cmpRender()" style="background:var(--bg4);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:13px;padding:8px 14px;border-radius:7px;cursor:pointer;flex:1;max-width:340px;outline:none;">
+                    <option value="">— Selecciona una comunidad —</option>
+                    <option value="galicia">🏔️ Galicia</option>
+                    <option value="asturias">⛏️ Asturias</option>
+                    <option value="cantabria">🌊 Cantabria</option>
+                    <option value="pais_vasco">🌿 País Vasco</option>
+                    <option value="navarra">🏰 Navarra</option>
+                    <option value="aragon">🦅 Aragón</option>
+                    <option value="cataluna">🌹 Cataluña</option>
+                    <option value="baleares">⛵ Baleares</option>
+                    <option value="canarias">🌋 Canarias</option>
+                    <option value="ceuta">🌉 Ceuta</option>
+                    <option value="melilla">🕌 Melilla</option>
+                    <option value="castilla_y_leon">🏯 Castilla y León</option>
+                    <option value="la_rioja">🍷 La Rioja</option>
+                    <option value="madrid">🏟️ Madrid</option>
+                    <option value="extremadura">🌿 Extremadura</option>
+                    <option value="castilla_la_mancha">⚔️ Castilla-La Mancha</option>
+                    <option value="comunidad_valenciana">🍊 C. Valenciana</option>
+                    <option value="murcia">🌞 Murcia</option>
+                    <option value="andalucia">🌺 Andalucía</option>
+                </select>
+                <select id="cmp-prov-select" onchange="cmpRender()" style="background:var(--bg4);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:13px;padding:8px 14px;border-radius:7px;cursor:pointer;flex:1;max-width:260px;outline:none;display:none;">
+                    <option value="">Total comunidad</option>
+                </select>
+            </div>
+        </div>
+        <div id="cmp-generales-sel" style="margin-bottom:18px;display:none;">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);white-space:nowrap;">Circunscripción</span>
+                <select id="cmp-gen-select" onchange="cmpRender()" style="background:var(--bg4);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:13px;padding:8px 14px;border-radius:7px;cursor:pointer;flex:1;max-width:340px;outline:none;">
+                    <option value="nacional">🇪🇸 Nacional</option>
+                    <option value="andalucia">Andalucía</option>
+                    <option value="aragon">Aragón</option>
+                    <option value="asturias">Asturias</option>
+                    <option value="baleares">Baleares</option>
+                    <option value="canarias">Canarias</option>
+                    <option value="cantabria">Cantabria</option>
+                    <option value="castilla_la_mancha">Castilla-La Mancha</option>
+                    <option value="castilla_y_leon">Castilla y León</option>
+                    <option value="cataluna">Cataluña</option>
+                    <option value="ceuta">Ceuta</option>
+                    <option value="melilla">Melilla</option>
+                    <option value="madrid">Madrid</option>
+                    <option value="navarra">Navarra</option>
+                    <option value="comunidad_valenciana">C. Valenciana</option>
+                    <option value="extremadura">Extremadura</option>
+                    <option value="galicia">Galicia</option>
+                    <option value="la_rioja">La Rioja</option>
+                    <option value="pais_vasco">País Vasco</option>
+                    <option value="murcia">Murcia</option>
+                </select>
+                <select id="cmp-gen-prov-select" onchange="cmpRender()" style="background:var(--bg4);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:13px;padding:8px 14px;border-radius:7px;cursor:pointer;flex:1;max-width:260px;outline:none;display:none;">
+                    <option value="">Total circunscripción</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- RESULTS AREA -->
+        <div id="cmp-placeholder" style="text-align:center;padding:60px 20px;color:var(--text3);">
+            <div style="font-size:3rem;margin-bottom:14px;">📊</div>
+            <p style="font-size:13px;">Selecciona el tipo de elección y la circunscripción para ver la comparativa</p>
+        </div>
+
+        <div id="cmp-results" style="display:none;">
+            <!-- Election labels -->
+            <div id="cmp-header" style="margin-bottom:20px;"></div>
+            <!-- Hemiciclo bar -->
+            <div id="cmp-hemiciclo" style="margin-bottom:24px;"></div>
+            <!-- Party cards -->
+            <div id="cmp-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:24px;"></div>
+            <!-- Provincial breakdown -->
+            <div id="cmp-provincial" style="display:none;"></div>
+        </div>
+    </div>
+
+<!-- ═══════════════════════════════════════════════════════ TESTS POLÍTICOS PANEL -->
+
+
+<div id="panel-tests" class="tool-panel">
+  <div class="tests-header">
+    <div class="tests-header-title">🧪 Tests Políticos</div>
+    <div class="tests-header-subtitle">La ideología tiene más de una dimensión...</div>
+    <div class="tests-selector-bar">
+      <button class="test-selector-btn active" onclick="testsSelectTab('nolan',this)">1. Test Político Nolan</button>
+      <button class="test-selector-btn" onclick="testsSelectTab('coordenadas',this)">2. Test de Coordenadas Políticas</button>
+      <button class="test-selector-btn" onclick="testsSelectTab('8valores',this)">3. Test de 8 Valores</button>
+      <button class="test-selector-btn" onclick="testsSelectTab('espectro',this)">4. Test Espectro Político</button>
+      <button class="test-selector-btn" onclick="testsSelectTab('isidewith',this)">5. Test iSideWith</button>
+    </div>
+  </div>
+  <div class="tests-body">
+
+    <!-- ── NOLAN TEST ── -->
+    <div id="test-nolan" class="nolan-wrap">
+      <div class="nolan-layout">
+
+        <!-- sidebar -->
+        <div class="nolan-sidebar">
+          <h3>Instrucciones</h3>
+          <p>Cada cuestión tiene tres posibles opiniones al respecto.</p>
+          <ul>
+            <li>Escoja aquella con la que se identifica.</li>
+            <li>Si no se identifica con ninguna, escoja aquella con la que se encuentre en mayor acuerdo.</li>
+            <li>Si no está de acuerdo con ninguna, escoja aquella con la que se encuentre en menor desacuerdo.</li>
+            <li>Si aún así no logra decidirse, siempre tiene la opción de dejar la cuestión sin responder, pulsando sobre la siguiente pregunta.</li>
+          </ul>
+          <div class="progress-bar-wrap" style="margin-top:18px;">
+            <label>Progreso:</label>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="nolan-bar"></div></div>
+            <div id="nolan-progress-pct">0%</div>
+          </div>
+        </div>
+
+        <!-- main area -->
+        <div class="nolan-main">
+          <!-- start box -->
+          <div id="nolan-start-panel">
+            <div class="nolan-section-title">Comienzo</div>
+            <div id="nolan-start-box">
+              <p>Por favor, responda a las 20 preguntas.</p>
+              <ul>
+                <li>Las 10 primeras preguntas le posicionarán en cuestiones sociales.</li>
+                <li>Las últimas 10 preguntas le posicionarán en cuestiones económicas.</li>
+              </ul>
+              <button onclick="nolanStart()">Comenzar</button>
+            </div>
+          </div>
+
+          <!-- questions area (hidden until start) -->
+          <div id="nolan-questions-area" style="display:none;"></div>
+
+          <!-- final box -->
+          <div id="nolan-final-panel" style="display:none;">
+            <div class="nolan-section-title">Final</div>
+            <div class="nolan-final-box">
+              <p>Si desea cambiar alguna de sus respuestas haga click sobre el título y proceda a seleccionar otra opción.</p>
+              <p>Una vez que esté seguro de sus respuestas, vuelva a esta sección y pulse en <em>Enviar test</em>:</p>
+              <button id="nolan-send-btn" onclick="nolanSubmit()">Enviar test</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /nolan-layout -->
+
+      <!-- result (full width, hidden) -->
+      <div id="nolan-result" style="margin-top:20px;">
+        <div style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;">TEST POLÍTICO NOLAN</div>
+        <div style="font-size:12px;color:var(--text3);font-style:italic;margin-bottom:18px;">La ideología tiene más de una dimensión...</div>
+
+        <div class="nolan-result-layout">
+          <!-- left col: scores + ideology -->
+          <div>
+            <div class="nolan-result-card">
+              <h3>Resultado del test</h3>
+              <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">Preferencias colectivo-individuo</div>
+              <div class="nolan-score-row">
+                <div class="nolan-score-label">Social</div>
+                <div class="nolan-score-track"><div class="nolan-score-fill" id="nolan-bar-social" style="width:0%"></div></div>
+                <div class="nolan-score-pct" id="nolan-pct-social">0%</div>
+              </div>
+              <div class="nolan-axis"><span>Colectivo</span><span>Individual</span></div>
+              <div class="nolan-score-row" style="margin-top:10px;">
+                <div class="nolan-score-label">Económico</div>
+                <div class="nolan-score-track"><div class="nolan-score-fill" id="nolan-bar-economico" style="width:0%"></div></div>
+                <div class="nolan-score-pct" id="nolan-pct-economico">0%</div>
+              </div>
+              <div class="nolan-axis"><span>Colectivo</span><span>Individual</span></div>
+            </div>
+
+            <div class="nolan-result-card" style="margin-top:14px;">
+              <h3>Ideología</h3>
+              <div class="nolan-ideology-title" id="nolan-ideo-title"></div>
+              <div class="nolan-ideology-desc" id="nolan-ideo-desc"></div>
+            </div>
+
+            <div class="nolan-result-card" style="margin-top:14px;">
+              <h3>Partidos políticos</h3>
+              <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">Los partidos políticos con una ideología más cercana a la suya son:</div>
+              <div class="nolan-parties-list" id="nolan-parties-list"></div>
+              <button class="nolan-show-parties-btn" onclick="nolanTogglePartiesOnDiagram()" id="nolan-toggle-parties-btn">Mostrar en diagrama »</button>
+            </div>
+          </div>
+
+          <!-- right col: diagram -->
+          <div>
+            <div class="nolan-result-card">
+              <h3>Diagrama de Nolan</h3>
+              <div id="nolan-canvas-container">
+                <canvas id="nolan-diagram-canvas"></canvas>
+              </div>
+            </div>
+          </div>
+        </div><!-- /nolan-result-layout -->
+
+        <div class="nolan-answers-section" style="margin-top:18px;">
+          <div class="nolan-result-card">
+            <h3>Sus respuestas fueron:</h3>
+            <ul class="nolan-answers-list" id="nolan-answers-list"></ul>
+          </div>
+        </div>
+
+        <button class="nolan-retry-btn" onclick="nolanReset()">↩ Volver a hacer el test</button>
+      </div><!-- /nolan-result -->
+    </div><!-- /test-nolan -->
+
+    <!-- ── TEST COORDENADAS (hidden by default) ── -->
+    <div id="test-coordenadas" class="nolan-wrap" style="display:none;"></div>
+
+    <!-- ── TEST 8 VALORES (hidden by default) ── -->
+    <div id="test-8valores" class="nolan-wrap" style="display:none;"></div>
+
+    <!-- ── TEST ESPECTRO POLÍTICO (hidden by default) ── -->
+    <div id="test-espectro" class="nolan-wrap" style="display:none;"></div>
+
+    <!-- ── TEST iSideWith (hidden by default) ── -->
+    <div id="test-isidewith" class="nolan-wrap" style="display:none;"></div>
+
+  </div><!-- /tests-body -->
+</div><!-- /panel-tests -->
+
+<!-- ═══ PANEL: PENSIONES GASTO ═══ -->
+<div id="panel-pensiones-gasto" class="tool-panel" style="padding:0;background:var(--bg);">
+  
+  <div class="pens-gasto" style="min-height:100%;background:var(--bg);">
+    <div class="container">
+  <!-- Header -->
+  <div class="header">
+    <span class="badge">🇪🇸 Gasto en pensiones públicas · España 2026</span>
+  </div>
+  <h1>Contador en tiempo real</h1>
+  <p class="subtitle">Del 1 de enero al 31 de diciembre. Estimación: <span id="gasto-anual-label"></span> € anuales (proyección IVIE).</p>
+
+  <!-- Counter -->
+  <div class="counter-card">
+    <div class="counter-value">
+      <span id="counter-digits">0,00</span><span class="eur">€</span>
+    </div>
+    <div class="day-info">Día <span id="day-of-year">1</span> de <span id="days-in-year">365</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-labels">
+      <span>1 ene</span><span id="progress-pct">0,00%</span><span>31 dic</span>
+    </div>
+  </div>
+
+  <!-- Speed -->
+  <div class="speed-grid" id="speed-grid"></div>
+
+  <!-- Equivalences -->
+  <div style="margin-top: 32px;">
+    <h2 class="section-title">Equivalencia acumulada</h2>
+    <div class="equiv-grid" id="equiv-grid"></div>
+  </div>
+
+  <!-- Megaprojects -->
+  <div style="margin-top: 40px;">
+    <div class="mega-title">¿Sabías cuánto cuestan estas cosas?</div>
+    <p class="mega-subtitle">Comparamos grandes presupuestos, obras históricas y megaproyectos con el gasto español en pensiones. Las cifras hablan.</p>
+    <div id="mega-list"></div>
+    <div class="summary-box" id="summary-box"></div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-section">
+    <div class="search-header">
+      <div class="big-icon">🔍</div>
+      <h2>Busca cualquier coste o presupuesto</h2>
+      <p>Escribe una obra, un presupuesto nacional, una fortuna, un rescate...<br>y te diré <strong style="color: #94a3b8">cuántos días de pensiones españolas</strong> equivale.</p>
+    </div>
+    <div class="search-box">
+      <div class="search-row">
+        <input type="text" class="search-input" id="search-input" placeholder="Ej: Presupuesto de Defensa de EE.UU." />
+        <button class="search-btn" id="search-btn">Buscar</button>
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+      <div class="search-loading" id="search-loading">
+        <div class="spinner"></div>
+        <div class="text">Buscando datos actualizados con IA…</div>
+      </div>
+      <div class="search-error" id="search-error"></div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Estimación IVIE 2026: 229.263 M€ en pensiones públicas totales. Interpolación lineal.
+    <br>Defensa EE.UU.: 838.700 M$ (Congreso FY2026). NASA: 24.440 M$ (Congreso FY2026). Programa Apolo: ~200.000 M$ (Wikipedia). Rescate bancario: ~100.000 M€ (El Economista).
+    <br>Proyecto Manhattan: ~28.000 M$ (Wikipedia). Burj Khalifa: ~1.500 M$ (Sotheby's). Bernabéu: 1.347 M€ (Real Madrid, julio 2025).
+    <br>La búsqueda utiliza IA (Claude) con acceso a web para obtener datos actualizados.
+  </div>
+</div>
+  </div>
+  
+</div>
+
+<!-- ═══ PANEL: PENSIONES PROVINCIA ═══ -->
+<div id="panel-pensiones-provincia" class="tool-panel" style="padding:0;background:var(--bg);">
+  
+  <div class="pens-provincia" style="min-height:100%;background:var(--bg);">
+    <header>
+  <div class="logo-area">
+    <h1>datos<span>pensiones</span>.es</h1>
+    <p>Estadísticas sobre pensiones contributivas y no contributivas del sistema de la Seguridad Social</p>
+  </div>
+  <div class="header-meta">
+    Datos a <strong>1 de febrero de 2026</strong><br />
+    Fuente: INSS · Ministerio de Inclusión
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-title">¿Cuánto cobran<br />los pensionistas de tu provincia?</div>
+  <div class="hero-subtitle">Análisis de las pensiones contributivas y no contributivas del sistema de la Seguridad Social en las 50 provincias y las 2 ciudades autónomas de España.</div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Media nacional</div>
+    <div class="kpi-value" id="kpi-media">—</div>
+    <div class="kpi-sub">€ / mes · Total sistema</div>
+  </div>
+  <div class="kpi-card green">
+    <div class="kpi-label">Provincia más alta</div>
+    <div class="kpi-value" id="kpi-max-val">—</div>
+    <div class="kpi-sub" id="kpi-max-name">—</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Provincia más baja</div>
+    <div class="kpi-value" id="kpi-min-val">—</div>
+    <div class="kpi-sub" id="kpi-min-name">—</div>
+  </div>
+  <div class="kpi-card blue">
+    <div class="kpi-label">Total pensiones en España</div>
+    <div class="kpi-value" id="kpi-total">—</div>
+    <div class="kpi-sub">*Un pensionista puede tener dos pensiones a la vez (como de jubilación y viudedad).</div>
+    <div class="kpi-note" id="kpi-total-note">Incluye jubilación, incapacidad permanente, viudedad, orfandad y a favor de familiares. Datos a 1 de febrero de 2026.</div>
+  </div>
+</div>
+
+<div class="main-content">
+
+  <!-- LEFT: MAP + CHART -->
+  <div>
+    <div class="controls">
+      <span class="controls-label">Mostrar</span>
+      <button class="pill-btn active" onclick="setType('total_media', event)">Total</button>
+      <button class="pill-btn" onclick="setType('jub_media', event)">Jubilación</button>
+      <button class="pill-btn" onclick="setType('ip_media', event)">Incap. Permanente</button>
+      <button class="pill-btn" onclick="setType('viu_media', event)">Viudedad</button>
+      <button class="pill-btn" onclick="setType('orf_media', event)">Orfandad</button>
+    </div>
+
+    <div class="map-section">
+      <div class="map-header">
+        <div class="map-title" id="map-title">Pensión media por provincia · Total sistema</div>
+        <div class="map-hint">Pasa el cursor sobre una provincia</div>
+      </div>
+      <div id="map"></div>
+      <div class="map-footer">
+        <div class="legend">
+          <span class="legend-label" id="leg-min">—</span>
+          <div class="legend-bar"></div>
+          <span class="legend-label" id="leg-max">—</span>
+          <span style="margin-left:12px;font-size:11px;color:var(--text-muted)">€/mes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-section" style="margin-top:16px;">
+      <div class="chart-header">
+        <div class="chart-title" id="chart-title">Pensión media por tipo — Selecciona una provincia</div>
+        <div class="chart-subtitle" id="chart-subtitle">Haz clic en cualquier provincia del mapa</div>
+      </div>
+      <div class="chart-body">
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: SIDEBAR -->
+  <div class="sidebar">
+
+    <!-- Province detail -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Detalle de provincia</div>
+        <div class="panel-badge" id="selected-label">Ninguna</div>
+      </div>
+      <div class="panel-body" id="province-detail">
+        <div class="province-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg>
+          <p>Haz clic sobre cualquier<br />provincia en el mapa</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ranking -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Ranking</div>
+        <div class="panel-badge" id="rank-label">Total · mayor a menor</div>
+      </div>
+      <div class="panel-body" style="padding:0 20px;">
+        <div class="ranking-list" id="pens-ranking-list"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Datos extraídos del <a href="https://www.seg-social.es" target="_blank">Instituto Nacional de la Seguridad Social (INSS)</a><br />
+  Creado por Adrián Sierra
+</footer>
+  </div>
+  
+</div>
+
+<!-- ═══ PANEL: VALORACIÓN DE LÍDERES ═══ -->
+<div id="panel-lideres" class="tool-panel" style="padding:0;background:var(--bg);">
+
+
+<div class="lid-wrap">
+  <div class="lid-header">
+    <div>
+      <h1>Valoración de <span>Líderes Nacionales</span></h1>
+      <p>Palabras asociadas a cada líder · Encuesta a votantes por partido · Fuente: estudio demoscópico</p>
+    </div>
+  </div>
+
+  <div class="lid-selector-row">
+    <span class="lid-selector-label">Votantes de:</span>
+    <button class="lid-party-btn active" data-party="pp" onclick="lideresSetParty('pp',this)">PP</button>
+    <button class="lid-party-btn" data-party="psoe" onclick="lideresSetParty('psoe',this)">PSOE</button>
+    <button class="lid-party-btn" data-party="vox" onclick="lideresSetParty('vox',this)">Vox</button>
+    <button class="lid-party-btn" data-party="sumar" onclick="lideresSetParty('sumar',this)">Sumar</button>
+    <button class="lid-party-btn" data-party="otros" onclick="lideresSetParty('otros',this)" style="border-color:#607d8b;">Otros</button>
+  </div>
+
+  <div class="lid-intro-banner">
+    <span class="lid-intro-icon">💬</span>
+    <div>Pasa el ratón sobre las palabras para resaltarlas. <strong>Selecciona un partido</strong> arriba para ver cómo valoran sus votantes a cada líder. El tamaño refleja la frecuencia de mención.Las Las palabras más frecuentes usan el color del líder, las siguientes el color del partido selector, las demás con opacidad gradual</div>
+  </div>
+
+  <div class="lid-leaders-row" id="lid-leaders-row">
+    <!-- Cards rendered by JS -->
+  </div>
+</div>
+
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PANEL: VOTO JOVEN Y MAYOR
+════════════════════════════════════════════════════════ -->
+
+
+<div id="panel-votojoven" class="tool-panel">
+
+  <!-- HERO -->
+  <div class="vj-hero">
+    <div class="vj-hero-eyebrow">🧑‍🤝‍🧑 Análisis político generacional</div>
+    <h1>Voto joven y voto mayor:<br><em>¿Por qué votamos como votamos?</em></h1>
+    <p class="vj-hero-sub">Un análisis sobre la relación entre edad, ideología y comportamiento electoral en España. Por qué la rebeldía cambia de bando, y si la gente realmente se vuelve más conservadora con los años.</p>
+    <div class="vj-progress-bar" id="vj-progress" aria-hidden="true"></div>
+  </div>
+
+  <!-- SCROLLABLE CONTENT -->
+  <div class="vj-content">
+
+    <!-- SECTION 1 -->
+    <div class="vj-section" data-vj-section="0">
+      <div class="vj-section-label">El péndulo generacional</div>
+      <h2>¿Por qué la rebeldía se ha desplazado hacia la derecha?</h2>
+
+      <p class="vj-p">La izquierda, la que fue disidente en el 15M (movimiento de los indignados), la del ascenso de PODEMOS, se ha convertido en el sistema. Se ha convertido en el estamento político.</p>
+
+      <p class="vj-p">Y aquí entra <span class="vj-highlight">«la teoría del pendulazo»</span>. La juventud, por una pulsación casi biológica, tiende a ser contestataria, pero no contra una ideología concreta, sino contra el poder visible y lo institucional. Por eso no es lo mismo la juventud del País Vasco o Galicia —donde los jóvenes vascos se ven inclinados a votar a EHBILDU en señal de protesta al gobierno tradicional del PNV, o en el caso de Galicia donde los jóvenes se ven atraídos por el BNG en clara confrontación con el tradicional dominio autonómico del PP— que la juventud andaluza o aragonesa, por ejemplo.</p>
+
+      <p class="vj-p">Esto constata la famosa frase de <em>«ser joven y no ser revolucionario es una contradicción hasta biológica»</em>.</p>
+
+      <div class="vj-quote-block">
+        <p>Cuando PODEMOS gritaba «¡asalto a los cielos!» canalizó toda esa energía, era el antisistema. Pero, ¿qué pasa cuando lo «antisistema» llega al gobierno y se convierte en parte del sistema?</p>
+      </div>
+
+      <p class="vj-p">Pues entonces la rebeldía busca otro polo. Para un joven de hoy, lo transgresor, lo «punk», ya no son aquellas causas que ahora tienen ministerios y campañas institucionales.</p>
+
+      <p class="vj-p">La verdadera transgresión, el acto de llevar la contraria al poder cultural y político establecido, es virar hacia el lado opuesto; en este caso, hacia opciones como VOX. Es muy probable que si mañana el establishment se volviera de derechas de manera hegemónica, la cosa cambiara, porque se generaría su propia contracultura.</p>
+    </div>
+
+    <hr class="vj-divider">
+
+    <!-- SECTION 2 -->
+    <div class="vj-section" data-vj-section="1">
+      <div class="vj-section-label">Causas y contracultura</div>
+      <h2>Cuando la causa se vuelve oficial</h2>
+
+      <p class="vj-p">El motor principal es la contestación al poder. Uno de los ejemplos más claros es el feminismo: cuando era una lucha más «underground» atraía un perfil muy concreto. Ahora que es una política de estado con un ministerio de igualdad y campañas constantes, esa energía rebelde busca otro cauce, porque esa causa ya es oficial.</p>
+
+      <p class="vj-p">No es tanto una conversión ideológica profunda y meditada, sino <span class="vj-highlight">una reacción «casi adolescente al discurso oficial»</span>.</p>
+
+      <p class="vj-p">Es una distinción clave: una cosa es «querer molestar al poder» y otra muy distinta es «tener un plan revolucionario», porque de hecho los jóvenes actuales son los menos militantes de la historia y también su verdadera «primera fuerza política» es la abstención.</p>
+    </div>
+
+    <hr class="vj-divider">
+
+    <!-- SECTION 3 -->
+    <div class="vj-section" data-vj-section="2">
+      <div class="vj-section-label">Los partidos como directores de cine</div>
+      <h2>La naturaleza real de los partidos políticos</h2>
+
+      <p class="vj-p">Esto nos lleva a la naturaleza misma de los partidos políticos, que nos lleva a una visión cínica, pero en el fondo, lúcida.</p>
+
+      <p class="vj-p">Los partidos políticos no son «guardianes de una ideología», sino que son más bien como <span class="vj-highlight">«directores de cine»</span>. Son entidades privadas que buscan maximizar beneficios —que en este caso son votos y que se traducen en dinero público— y cada cuatro años los espectadores eligen una «película», un «relato», que creen que va a ser un éxito de taquilla electoral.</p>
+
+      <div class="vj-card-grid">
+        <div class="vj-card">
+          <div class="vj-card-icon">🌿</div>
+          <div class="vj-card-title">Si el público pide ecologismo…</div>
+          <div class="vj-card-body">La película será verde. El guión se adapta a lo que el electorado quiere ver.</div>
+        </div>
+        <div class="vj-card">
+          <div class="vj-card-icon">🛡️</div>
+          <div class="vj-card-title">Si quiere seguridad…</div>
+          <div class="vj-card-body">Será un thriller de acción. La ideología es el guión y el guión se puede reescribir.</div>
+        </div>
+        <div class="vj-card">
+          <div class="vj-card-icon">🔄</div>
+          <div class="vj-card-title">La flexibilidad es máxima</div>
+          <div class="vj-card-body">Siempre dentro de unas líneas rojas para no perder a los fans más acérrimos, pero la adaptación al electorado joven es constante.</div>
+        </div>
+      </div>
+
+      <p class="vj-p">La ideología es el guión y el guión se puede reescribir las veces que haga falta —siempre, claro, dentro de unas líneas rojas para no perder a los fans más acérrimos— pero la flexibilidad es máxima, y más cuando los jóvenes buscan constantes actualizaciones y son un electorado a atraer.</p>
+    </div>
+
+    <hr class="vj-divider">
+
+    <!-- SECTION 4 -->
+    <div class="vj-section" data-vj-section="3">
+      <div class="vj-section-label">El voto mayor</div>
+      <h2>¿Por qué los mayores votan diferente?</h2>
+
+      <p class="vj-p">En cuanto a la gente mayor, esta no se vuelve «de derechas» en un sentido ideológico puro, sino que se vuelve <span class="vj-highlight">«pro seguridad»</span> y <span class="vj-highlight">«pro estabilidad»</span>. Cuando se acumula un pequeño patrimonio, una hipoteca, una familia, un trabajo estable, la idea de una revolución o un cambio radical empieza a sonar más a amenaza que a promesa. Quieres conservar lo que tienes, no ponerlo en riesgo.</p>
+
+      <p class="vj-p">Ahí es donde los partidos de derechas tradicionalmente juegan con ventaja, porque su relato suele girar en torno a conceptos como «seguridad», «orden», «defensa», «protección del patrimonio». Son palabras que resuenan mucho más en alguien con aversión al riesgo. Es el contrapunto perfecto al relato de la izquierda, que suele basarse en el «progreso», en el «cambio» y en la «innovación» —conceptos que atraen más a quien tiene menos que perder.</p>
+
+      <p class="vj-p">Conceptos que también se han quemado en exceso por el <span class="vj-highlight">politiqués</span> —ese dialecto, jerga o lenguaje típico de los políticos, caracterizado por ser vago, repetitivo, lleno de eufemismos y, a menudo, alejado del lenguaje ciudadano común.</p>
+    </div>
+
+    <hr class="vj-divider">
+
+    <!-- SECTION 5 -->
+    <div class="vj-section" data-vj-section="4">
+      <div class="vj-section-label">Cambios con la edad</div>
+      <h2>Los cuatro vectores del cambio generacional</h2>
+
+      <p class="vj-p">Al hacernos mayores experimentamos una serie de cambios: psicológicos, fisiológicos, sociales y económicos. Tanto la persona que cumple años como el entorno que también envejece con ella.</p>
+
+      <div class="vj-card-grid">
+        <div class="vj-card">
+          <div class="vj-card-icon">🧠</div>
+          <div class="vj-card-title">Psicológico</div>
+          <div class="vj-card-body">Los estudios de psicología nos dicen que al cumplir años las personas experimentan un mayor deseo por el orden, la paz y la autodisciplina. Este cambio viene empujado por las estructuras neuronales y se vincula a ser más conservador.</div>
+        </div>
+        <div class="vj-card">
+          <div class="vj-card-icon">👥</div>
+          <div class="vj-card-title">Social</div>
+          <div class="vj-card-body">Cuando eres joven tienes muchas más interacciones sociales. Con 35, 40 o 45 años, las principales preocupaciones son el trabajo, la familia, la estabilidad o el bienestar más inmediato.</div>
+        </div>
+        <div class="vj-card">
+          <div class="vj-card-icon">💼</div>
+          <div class="vj-card-title">Económico</div>
+          <div class="vj-card-body">Si hay un patrón estable, cuando las personas adquieren experiencia en el mercado de trabajo su fuerza de trabajo vale más, son más remuneradas y, al adquirir status, les interesa preservar el orden social establecido.</div>
+        </div>
+        <div class="vj-card">
+          <div class="vj-card-icon">🔬</div>
+          <div class="vj-card-title">Biológico</div>
+          <div class="vj-card-body">Conforme nos hacemos mayores, somos más susceptibles de ponernos enfermos y necesitar asistencia médica. Es más probable que nos decantemos por políticas redistributivas e intervencionistas que aseguren la salud.</div>
+        </div>
+      </div>
+
+      <p class="vj-p">No hay debate de que las preferencias, los valores y las actitudes de las personas cambien con los años.</p>
+
+      <p class="vj-p">Lo normal es que, contra más status y más años trabajando, más se cobre; pero no siempre se va a cumplir. Puede seguirse con el mismo status o cobrando lo mismo durante toda una vida, incluso en el peor de los casos puede verse empeorado. Igual que una persona a los 40 años puede no desarrollar esa preocupación inmediata por el trabajo o la familia, así que no tiene por qué darse en todo el mundo de la misma manera.</p>
+    </div>
+
+    <hr class="vj-divider">
+
+    <!-- SECTION 6 -->
+    <div class="vj-section" data-vj-section="5">
+      <div class="vj-section-label">El debate conceptual</div>
+      <h2>¿Qué se entiende por «conservador»?</h2>
+
+      <p class="vj-p">Hay otro problema muy grande: ¿qué se entiende por ser conservador? ¿Qué se entiende por ser más de derechas?</p>
+
+      <p class="vj-p">El conservadurismo se puede entender en el sentido de mantener el orden social, de mantener el <em>status quo</em>, preservar el orden vigente. O, por otro lado, podemos relacionar el conservadurismo con una serie de valores y rasgos individuales: ser religioso, identificarse con un modelo tradicional de familia, tener valores patrióticos o nacionalistas…</p>
+
+      <div class="vj-quote-block">
+        <p>Si entendemos ser conservador como defender el status quo y el orden vigente, podríamos incluso denominar a partidos de derechas como VOX como «progresistas», porque en cualquier caso no serían conservadores: están en contra de un orden establecido, de un «globalismo», de un «políticamente correcto», de una «constitución del 78». Al final todo el mundo sería progresista, porque «no hay nadie conservador».</p>
+      </div>
+
+      <p class="vj-p">Del mismo modo, los partidos socialdemócratas como el PSOE en España podrían considerarse conservadores, porque también son firmes defensores del orden vigente, del <em>status quo</em>.</p>
+
+      <p class="vj-p">Por eso cuando aparecen personalidades como Joaquín Sabina o Bertín Osborne diciendo que de jóvenes eran progresistas cuando son más conservadores que tu tío en una comida familiar —en sus cabezas, el ir en contra del status quo puede ser cierto, pero que eso te convierta en progresista es un tema aparte de cómo entendemos el conservadurismo.</p>
+    </div>
+
+    <hr class="vj-divider">
+
+    <!-- SECTION 7 -->
+    <div class="vj-section" data-vj-section="6">
+      <div class="vj-section-label">Lo que dice la ciencia política</div>
+      <h2>Diferentes corrientes, diferentes conclusiones</h2>
+
+      <p class="vj-p">Desde la ciencia política hay diversidad de opiniones y diferentes maneras de entender estos cambios de valores y actitudes con la edad.</p>
+
+      <div class="vj-pill-row">
+        <div class="vj-pill">📌 Corriente de la estabilidad</div>
+        <div class="vj-pill">📌 Corriente del cambio vital</div>
+        <div class="vj-pill">📌 Teoría de la socialización</div>
+      </div>
+
+      <p class="vj-p">Hay corrientes que defienden que no suelen haber cambios en los valores políticos de las personas: si tú naces y te socializas en un entorno conservador, lo normal es que con 30, 40 o 50 años sigas siendo más o menos conservador. No suele haber cambios muy grandes.</p>
+
+      <p class="vj-p">Pero también hay otras corrientes que van por el camino de que experimentamos eventos, experimentamos cambios en nuestro entorno y en nuestra socialización, que pueden modificar o alterar esta socialización y estos valores que hemos adquirido previamente. Pero hasta aquí ninguna teoría nos dice científicamente que una persona con los años tenga que hacerse más conservadora.</p>
+    </div>
+
+    <hr class="vj-divider">
+
+    <!-- SECTION 8 / CONCLUSION -->
+    <div class="vj-section" data-vj-section="7">
+      <div class="vj-section-label">La evidencia empírica</div>
+      <h2>¿La gente se hace de derechas con los años? Pues no… pero sí</h2>
+
+      <p class="vj-p">Según un estudio realizado en Estados Unidos sobre esta materia, tiene parte de razón el <em>sí</em>. Lo que decía ese estudio —que viene a reafirmar muchas corrientes de la ciencia política— es que lo normal no es que cambies de ideología con los años.</p>
+
+      <p class="vj-p">Lo normal es que tus valores políticos se mantengan conforme te haces mayor. Si te has criado en un entorno conservador, de derechas, y te han inculcado valores tradicionales, lo normal es que con 40 años sigas siendo conservador, tradicional —como se prefiera denominar— puede ser más o puede ser menos, pero lo normal es que sigas siéndolo, atendiendo siempre a normas generales, a estadística y a probabilidad.</p>
+
+      <div class="vj-conclusion">
+        <div class="vj-conclusion-label">📊 Conclusión del estudio</div>
+        <h3>El pequeño grupo que sí cambia</h3>
+        <p class="vj-p" style="margin-bottom:0;">Ahora bien, lo normal en las personas es no cambiar de actitudes y valores políticos. Aquellas personas que se salen de la norma y que efectivamente sí cambian sus actitudes y sus valores políticos —entre este grupo, que en cualquier caso es pequeño— sí que era más normal y se veía más claramente que las personas que cambiaban lo hacían hacia posiciones más conservadoras.</p>
+      </div>
+    </div>
+
+    <div class="vj-source-tag">
+      📚 Basado en análisis de ciencia política y comportamiento electoral español · Journals University of Chicago, 2019
+    </div>
+
+  </div><!-- /vj-content -->
+</div><!-- /panel-votojoven -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     OHIOS AUTONÓMICOS — PANEL
+     Municipios "espejo" que replican el voto de su comunidad
+═══════════════════════════════════════════════════════════ -->
+
+
+
+<div id="panel-ohios" class="tool-panel">
+  <div class="ohio-header">
+    <div class="ohio-header-top">
+      <div class="ohio-title-block">
+        <h2>🪞 Ohios Autonómicos</h2>
+        <p>Municipios que reflejan fielmente el comportamiento electoral del conjunto de su comunidad autónoma. El concepto es análogo al condado de Ohio en EE.UU.: territorios que, año tras año, votan casi idéntico a la media regional y funcionan como termómetro de la tendencia general.</p>
+      </div>
+      <span class="ohio-badge">8 comunidades · datos comparados</span>
+    </div>
+    <div class="ohio-community-tabs" id="ohio-comm-tabs">
+      <button class="ohio-comm-btn active" data-comm="andalucia">🌅 Andalucía</button>
+      <button class="ohio-comm-btn" data-comm="cataluna">🏔️ Cataluña</button>
+      <button class="ohio-comm-btn" data-comm="madrid">🏙️ C. de Madrid</button>
+      <button class="ohio-comm-btn" data-comm="galicia">🌊 Galicia</button>
+      <button class="ohio-comm-btn" data-comm="murcia">☀️ R. de Murcia</button>
+      <button class="ohio-comm-btn" data-comm="extremadura">🌿 Extremadura</button>
+      <button class="ohio-comm-btn" data-comm="asturias">⛰️ Asturias</button>
+      <button class="ohio-comm-btn" data-comm="cantabria">🌊 Cantabria</button>
+    </div>
+  </div>
+
+  <div class="ohio-content" id="ohio-content">
+
+    <!-- ANDALUCÍA / TARIFA -->
+    <div class="ohio-community-panel active" id="ohio-andalucia">
+      <div class="ohio-comm-title">
+        <h3>Andalucía</h3>
+        <span class="ohio-mirror-label">Ohio: <strong>Tarifa</strong> (Cádiz)</span>
+      </div>
+      <div class="ohio-years-grid" id="ohio-years-andalucia"></div>
+    </div>
+
+    <!-- CATALUÑA / GRANOLLERS -->
+    <div class="ohio-community-panel" id="ohio-cataluna">
+      <div class="ohio-comm-title">
+        <h3>Cataluña</h3>
+        <span class="ohio-mirror-label">Ohio: <strong>Granollers</strong> (Barcelona)</span>
+      </div>
+      <div class="ohio-years-grid" id="ohio-years-cataluna"></div>
+    </div>
+
+    <!-- MADRID / COLMENAREJO -->
+    <div class="ohio-community-panel" id="ohio-madrid">
+      <div class="ohio-comm-title">
+        <h3>Comunidad de Madrid</h3>
+        <span class="ohio-mirror-label">Ohio: <strong>Colmenarejo</strong> (Madrid)</span>
+      </div>
+      <div class="ohio-years-grid" id="ohio-years-madrid"></div>
+    </div>
+
+    <!-- GALICIA / BETANZOS -->
+    <div class="ohio-community-panel" id="ohio-galicia">
+      <div class="ohio-comm-title">
+        <h3>Galicia</h3>
+        <span class="ohio-mirror-label">Ohio: <strong>Betanzos</strong> (A Coruña)</span>
+      </div>
+      <div class="ohio-years-grid" id="ohio-years-galicia"></div>
+    </div>
+
+    <!-- MURCIA / MOLINA DE SEGURA -->
+    <div class="ohio-community-panel" id="ohio-murcia">
+      <div class="ohio-comm-title">
+        <h3>Región de Murcia</h3>
+        <span class="ohio-mirror-label">Ohio: <strong>Molina de Segura</strong> (Murcia)</span>
+      </div>
+      <div class="ohio-years-grid" id="ohio-years-murcia"></div>
+    </div>
+
+    <!-- EXTREMADURA / DON BENITO -->
+    <div class="ohio-community-panel" id="ohio-extremadura">
+      <div class="ohio-comm-title">
+        <h3>Extremadura</h3>
+        <span class="ohio-mirror-label">Ohio: <strong>Don Benito</strong> (Badajoz)</span>
+      </div>
+      <div class="ohio-years-grid" id="ohio-years-extremadura"></div>
+    </div>
+
+    <!-- ASTURIAS / SIERO -->
+    <div class="ohio-community-panel" id="ohio-asturias">
+      <div class="ohio-comm-title">
+        <h3>Asturias</h3>
+        <span class="ohio-mirror-label">Ohio: <strong>Siero</strong> (Asturias)</span>
+      </div>
+      <div class="ohio-years-grid" id="ohio-years-asturias"></div>
+    </div>
+
+    <!-- CANTABRIA / CAMARGO -->
+    <div class="ohio-community-panel" id="ohio-cantabria">
+      <div class="ohio-comm-title">
+        <h3>Cantabria</h3>
+        <span class="ohio-mirror-label">Ohio: <strong>Camargo</strong> (Cantabria)</span>
+      </div>
+      <div class="ohio-years-grid" id="ohio-years-cantabria"></div>
+    </div>
+
+  </div><!-- /ohio-content -->
+</div><!-- /panel-ohios -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     TRANSLACIÓN AUTONÓMICAS ↔ GENERALES — PANEL v2 IMPACTO
+═══════════════════════════════════════════════════════════ -->
+
+
+
+<div id="panel-translacion" class="tool-panel">
+
+  <div class="trl-hero">
+    <div class="trl-hero-top">
+      <div>
+        <h2 class="trl-hero-title">🔄 Traslación <span>Electoral</span></h2>
+        <p class="trl-hero-sub">Herramienta de política-ficción. ¿Qué pasaría si los votos autonómicos se contaran con circunscripciones generales, y viceversa? La participación real de cada convocatoria se indica como dato de contexto.</p>
+      </div>
+      <span class="trl-fiction-badge">⚠ Política-ficción · No son resultados reales</span>
+    </div>
+  </div>
+
+  <div class="trl-controls">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="trl-ctrl-label">Dirección</span>
+      <div class="trl-dir-toggle">
+        <button class="trl-dir-btn active" id="trl-btn-auto2gen" onclick="trlSetDir('auto2gen')">🏛 Auton. → Gen.</button>
+        <button class="trl-dir-btn" id="trl-btn-gen2auto" onclick="trlSetDir('gen2auto')">🇪🇸 Gen. → Auton.</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="trl-ctrl-label">Comunidad</span>
+      <select class="trl-select" id="trl-comm-select" onchange="trlRender()">
+        <option value="all">Todas</option>
+        <option value="galicia">Galicia</option>
+        <option value="paisvasco">País Vasco</option>
+        <option value="cataluna">Cataluña</option>
+        <option value="castillaleon">Castilla y León</option>
+        <option value="andalucia">Andalucía</option>
+        <option value="madrid">Madrid</option>
+        <option value="valenciana">C. Valenciana</option>
+        <option value="clm">Castilla-La Mancha</option>
+        <option value="canarias">Canarias</option>
+        <option value="aragon">Aragón</option>
+        <option value="murcia">Murcia</option>
+        <option value="extremadura">Extremadura</option>
+        <option value="baleares">Baleares</option>
+        <option value="asturias">Asturias</option>
+        <option value="navarra">Navarra</option>
+        <option value="cantabria">Cantabria</option>
+        <option value="rioja">La Rioja</option>
+        <option value="ceuta">Ceuta</option>
+        <option value="melilla">Melilla</option>
+      </select>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="trl-ctrl-label">Año</span>
+      <select class="trl-select" id="trl-year-select" onchange="trlRender()">
+        <option value="all">Todos</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="trl-content" id="trl-main-content">
+    <div class="trl-empty">Cargando datos…</div>
+  </div>
+
+</div><!-- /panel-translacion -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- ═══ PANEL: ESPAÑA CALCULADORA ═══ -->
+
+
+<div id="panel-espana-calculadora" class="tool-panel" style="padding:0;">
+<div id="ecalc-layout">
+<!-- LEFT COLUMN -->
+<div id="ecalc-left">
+
+<div style="margin-bottom:16px;">
+  <h2 style="margin:0 0 2px;font-size:1.3rem;font-weight:700;color:var(--text);">España · Calculadora interactiva de escaños</h2>
+  <p style="margin:0;color:var(--text3);font-size:12px;">Introduce los porcentajes de voto para simular el reparto de escaños por la Ley D'Hondt.</p>
+</div>
+
+<table id="ecalc-table">
+  <thead>
+    <tr>
+      <th>Partido</th>
+      <th>2023</th>
+      <th>Votos (%)</th>
+      <th>Escaños</th>
+      <th>+/- 2023</th>
+    </tr>
+  </thead>
+  <tbody id="ecalc-tbody"></tbody>
+  <tfoot>
+    <tr>
+      <td>Totales</td><td></td>
+      <td id="ecalc-total-votes">0.0%</td>
+      <td id="ecalc-total-seats">0</td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="ec-btn-row">
+  <button class="ec-btn-calc" id="ecalc-calc-btn">Calcular</button>
+  <button class="ec-btn-reset" id="ecalc-reset-btn">Reiniciar</button>
+  <button class="ec-btn-rand" id="ecalc-rand-btn">Aleatorio</button>
+</div>
+
+<!-- COALITION BUILDER -->
+<div id="ecalc-coalition">
+  <div class="ec-header-row">
+    <h3 style="margin:0;font-size:14px;font-weight:700;color:var(--text);">Pactómetro</h3>
+    <div class="ec-tab-switcher">
+      <div class="ec-tab-pill" id="ecalc-tab-pill"></div>
+      <button class="ec-tab-btn active" id="ecalc-tab-result">Result.</button>
+      <button class="ec-tab-btn" id="ecalc-tab-2023">2023</button>
+    </div>
+  </div>
+  <div class="ec-legend" id="ecalc-legend"></div>
+  <div class="ec-bar-container" id="ecalc-coal-bar">
+    <div class="ec-coalition-bar" id="ecalc-coal-overlay"></div>
+    <div class="ec-maj-line" title="Mayoría 176 escaños"></div>
+  </div>
+  <div class="ec-counter" id="ecalc-counter">0 / 350</div>
+  <div class="ec-note" id="ecalc-note">Mayoría = 176 escaños · Sí: 0 | No: 0 | Abstención: 0</div>
+</div>
+
+<!-- SETTINGS -->
+<button class="ec-settings-btn" id="ecalc-settings-toggle">⚙️ Ajustes adicionales</button>
+<div id="ecalc-settings-panel" style="display:none;">
+  <h4>Parámetros avanzados (%)</h4>
+  <table id="ecalc-conc-table">
+    <thead><tr><th>Partido</th><th>Concentración</th><th>Efecto incumbente</th></tr></thead>
+    <tbody id="ecalc-conc-body"></tbody>
+  </table>
+</div>
+
+</div><!-- /ecalc-left -->
+
+<!-- RIGHT COLUMN -->
+<div id="ecalc-right">
+<div id="ecalc-search-section">
+  <h3 style="margin:0 0 12px;font-size:14px;font-weight:700;color:var(--text);text-align:center;">Resultados por circunscripción</h3>
+  <div class="ec-search-wrap">
+    <input type="text" id="ecalc-prov-search" placeholder="Buscar circunscripción...">
+    <ul id="ecalc-prov-dropdown" class="ec-dropdown"></ul>
+  </div>
+  <div id="ecalc-bars"></div>
+  <div id="ecalc-prov-seats" class="ec-prov-seats"></div>
+  <div id="ecalc-winner-text" class="ec-winner-text"></div>
+  <div id="ecalc-steal-info" class="ec-steal-info" style="display:none;"></div>
+</div>
+
+<div id="ecalc-map-section">
+  <div id="ecalc-map"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:5px;">
+    <p style="font-size:11px;color:var(--text3);margin:0;">Haz clic en una circunscripción para ver sus resultados.</p>
+    <button onclick="document.getElementById('ecalc-rand-btn').click()" style="background:#1a7a3a;color:#fff;border:none;border-radius:6px;padding:4px 11px;font-size:11px;cursor:pointer;font-family:var(--font);">Aleatorio</button>
+  </div>
+  <p style="font-size:11px;color:var(--text3);margin:6px 0 0;font-style:italic;">** Esta calculadora es una versión simplificada del modelo. Algunas proyecciones pueden diferir de los resultados reales.</p>
+</div>
+
+</div><!-- /ecalc-right -->
+</div><!-- /ecalc-layout -->
+
+
+</div><!-- /panel-espana-calculadora -->
+
+</div>
+
+<!-- CALENDAR MODAL -->
+<div class="cal-modal-overlay" id="cal-modal-overlay" onclick="if(event.target===this)closeCalModal()">
+  <div class="cal-modal">
+    <div style="font-size:32px;margin-bottom:8px;" id="cal-modal-icon">📅</div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px;" id="cal-modal-title"></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:10px;" id="cal-modal-date"></div>
+    <div style="font-size:13px;color:var(--text2);" id="cal-modal-body"></div>
+    <button onclick="closeCalModal()" class="btn" style="margin-top:14px;width:100%;justify-content:center;">Cerrar</button>
+  </div>
+</div>
+
+<!-- MAP MODAL OVERLAY -->
+<div class="map-overlay" id="map-modal-overlay" onclick="if(event.target===this)closeMapModal()">
+  <div class="map-modal" id="map-modal-content"></div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="moverlay" id="admin-modal">
+    <div class="mbox">
+        <div class="mtitle2">🔐 Acceso administrador</div>
+        <div class="msub2">Solo el propietario puede gestionar presidentes y mandatos</div>
+        <div id="admin-login-form">
+            <div class="ig"><label class="il">Contraseña</label><input class="if" type="password" id="admin-password" placeholder="Introduce la contraseña..." onkeydown="if(event.key==='Enter')loginAdmin()"></div>
+            <div style="display:flex;gap:9px;margin-top:14px;">
+                <button class="btn" onclick="loginAdmin()">Acceder</button>
+                <button class="btn btn-g" onclick="closeAdminModal()">Cancelar</button>
+            </div>
+            <div id="admin-error" style="display:none;color:#ef5350;font-size:12px;margin-top:9px;">Contraseña incorrecta</div>
+        </div>
+        <div id="admin-panel" style="display:none;">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:14px;">
+                <span class="badge b-gold">Admin activo</span>
+                <button class="btn btn-g" style="font-size:10px;padding:3px 9px;" onclick="logoutAdmin()">Cerrar sesión</button>
+            </div>
+            <div class="stitle">Gestión de presidentes</div>
+            <div id="modal-pres-list" style="margin-bottom:14px;"></div>
+            <button class="btn" onclick="showAddPresForm()" style="width:100%;justify-content:center;">+ Añadir presidente</button>
+            <div id="add-pres-form" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+                <div class="stitle">Nuevo presidente</div>
+                <div class="ig"><label class="il">Nombre</label><input class="if" id="new-pres-name" placeholder="Nombre completo"></div>
+                <div class="ig"><label class="il">Fecha de inicio</label><input class="if" type="date" id="new-pres-start"></div>
+                <div class="ig"><label class="il">Fecha de fin (vacía = activo)</label><input class="if" type="date" id="new-pres-end"></div>
+                <div class="ig"><label class="il">Color del partido</label><input class="if" type="color" id="new-pres-color" value="#e53935"></div>
+                <div class="ig"><label class="il">Foto (URL)</label><input class="if" id="new-pres-photo" placeholder="https://..."></div>
+                <div style="display:flex;gap:7px;margin-top:7px;">
+                    <button class="btn" onclick="saveNewPresident()">Guardar</button>
+                    <button class="btn btn-g" onclick="document.getElementById('add-pres-form').style.display='none'">Cancelar</button>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="stitle">Subir foto de presidente</div>
+            <div class="ig"><label class="il">Presidente</label><select class="if" id="photo-pres-select"></select></div>
+            <div class="ig"><label class="il">Seleccionar foto</label><input type="file" id="photo-upload" accept="image/*" class="if" style="padding:4px;" onchange="previewPhoto(this)"></div>
+            <div id="photo-preview" style="margin-bottom:9px;display:none;"><img id="photo-preview-img" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);"></div>
+            <button class="btn" onclick="savePresPhoto()">Guardar foto</button>
+            <div class="divider"></div>
+            <button class="btn btn-d" onclick="closeAdminModal()" style="width:100%;">Cerrar panel admin</button>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script src="../js/index.js"></script>
+<script src="../js/calendar_map.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
