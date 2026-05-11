@@ -1,0 +1,97 @@
+// Colores por partido
+const colores = { PP:"#0000FF", PSOE:"#FF0000", VOX:"#008000", SUMAR:"#800080", JUNTS: "#40E0D0", ERC: "#c99f00", AC: "#014983", CUP: "#010101", SALF: "#5f4238", JUNTSYERC: "#dbdc54" };
+
+// Todas las encuestas
+const encuestas = [
+   { nombre: "NCREPORT", fecha: "12 de junio de 2024", escanos:["JUNTS","PSOE","JUNTS","JUNTS","PSOE","ERC","AC","JUNTS" ,"JUNTS","PP","PSOE","VOX","JUNTS","PSOE","ERC","JUNTS","AC"] },
+   { nombre: "EM ANALYTICS", fecha: "17 de junio de 2024", escanos:["JUNTS","PSOE","JUNTS","JUNTS","AC","PSOE","ERC","JUNTS","JUNTS","PP","PSOE","VOX","JUNTS","AC","PSOE","JUNTS","ERC"] },
+   { nombre: "DYS", fecha: "28 de junio de 2024", escanos:["JUNTS","PSOE","JUNTS","JUNTS","ERC","PSOE","AC","JUNTS","JUNTS","PP","PSOE","JUNTS","VOX","ERC","JUNTS","PSOE","AC"] },
+   { nombre: "DYS", fecha: "29 de junio de 2024", escanos:["JUNTSYERC","JUNTSYERC","PSOE","JUNTSYERC","JUNTSYERC","JUNTSYERC","PSOE","JUNTSYERC","AC","JUNTSYERC","JUNTSYERC","PP","PSOE","JUNTSYERC","JUNTSYERC","VOX","PSOE"] },
+   { nombre: "VOZ PÓPULI", fecha: "8 de julio de 2024", escanos:["JUNTS","PSOE","JUNTS","JUNTS","PSOE","ERC","AC","JUNTS","JUNTS","PP","PSOE","VOX","JUNTS","JUNTS","PSOE","ERC","AC"] },
+   { nombre: "CEO", fecha: "18 de julio de 2024", escanos:["JUNTS","PSOE","JUNTS","ERC","JUNTS","PSOE","JUNTS","AC","PSOE","PP","JUNTS","ERC","JUNTS","VOX","PSOE","CUP","JUNTS"] },
+   { nombre: "NCREPORT", fecha: "19 de julio de 2024", escanos:["JUNTS","PSOE","JUNTS","JUNTS","PSOE","ERC","JUNTS","AC","JUNTS","PP","PSOE","JUNTS","VOX","JUNTS","PSOE","ERC","JUNTS"] },
+   { nombre: "CEO", fecha: "27 de marzo de 2025", escanos:["JUNTS","PSOE","JUNTS","ERC","AC","PSOE","JUNTS","JUNTS","ERC","VOX","PP","AC","PSOE","JUNTS","PSOE","JUNTS","ERC"] },
+   { nombre: "THE OBJECTIVE", fecha: "15 de mayo de 2025", escanos:["JUNTS","PSOE","JUNTS","AC","ERC","PSOE","JUNTS","VOX","JUNTS","PSOE","AC","PP","JUNTS","ERC","PSOE","JUNTS","JUNTS"] },
+   { nombre: "CEO", fecha: "16 de julio de 2025", escanos:["JUNTS","PSOE","AC","JUNTS","ERC","PSOE","JUNTS","AC","VOX","JUNTS","ERC","PP","PSOE","JUNTS","AC","PSOE","JUNTS"] },
+   { nombre: "INTERNO VOX", fecha: "2 de septiembre de 2025", escanos:["JUNTS","PSOE","JUNTS","AC","ERC","JUNTS","PSOE","VOX","JUNTS","AC","ERC","PSOE","PP","JUNTS","JUNTS","PSOE","VOX"] },
+   { nombre: "SIGMA 2", fecha: "14 de septiembre de 2025", escanos:["JUNTS","AC","PSOE","JUNTS","ERC","AC","PSOE","JUNTS","AC","VOX","PSOE","JUNTS","ERC","PP","AC","JUNTS","CUP"] },
+   { nombre: "IPSOS", fecha: "21 de septiembre de 2025", escanos:["AC","JUNTS","PSOE","AC","ERC","JUNTS","VOX","AC","PSOE","AC","JUNTS","ERC","PSOE","PP","AC","JUNTS","CUP"] },
+   { nombre: "CEO", fecha: "24 de noviembre de 2025", escanos:["AC","JUNTS","PSOE","ERC","AC","JUNTS","AC","PSOE","ERC","VOX","AC","JUNTS","CUP","AC","PSOE","PP","ERC"] },
+   { nombre: "ELECTOPANEL", fecha: "30 de enero de 2026", escanos:["AC","JUNTS","PSOE","ERC","AC","JUNTS","AC","PSOE","JUNTS","ERC","VOX","AC","JUNTS","AC","PP","PSOE","ERC"] },
+  ];
+
+// Encuestas precampaña 2025 (seleccionadas manualmente)
+const encuestas2025 = [
+  encuestas[0],
+];
+
+// Funciones para calcular recuento y mostrarlo
+function calcularRecuentoPorEncuesta(encuesta) {
+  const recuento = {};
+  encuesta.escanos.forEach(p => recuento[p] = (recuento[p] || 0) + 1);
+  return recuento;
+}
+
+function mostrarRecuento(encuestasFiltradas, idDiv) {
+  const div = document.getElementById(idDiv);
+  div.innerHTML = encuestasFiltradas.map(e => {
+    const r = calcularRecuentoPorEncuesta(e);
+    return `<strong>${e.nombre} (${e.fecha}):</strong> ${Object.entries(r).map(([p,n]) => `<span style="color:${colores[p]}">${p}: ${n} escaños</span>`).join(" | ")}`;
+  }).join("<br>");
+}
+
+// Función para crear gráfico
+function crearGrafico(encuestasFiltradas, idCanvas) {
+  const xLabels = encuestasFiltradas.map(e => `${e.nombre} ${e.fecha}`);
+  const yLabels = Array.from({length:17}, (_,i)=> (i+1).toString());
+  const datasets = encuestasFiltradas.map((e,idx)=>({
+    label: `${e.nombre} ${e.fecha}`,
+    data: e.escanos.map((p,i)=>({ x:xLabels[idx], y:yLabels[i] })),
+    showLine:false,
+    pointRadius: 10,
+    pointBackgroundColor: e.escanos.map(p => colores[p]),
+    pointBorderColor: "#000"
+  }));
+  new Chart(document.getElementById(idCanvas), {
+    type:'scatter',
+    data:{datasets},
+    options:{
+      responsive:true,
+      aspectRatio:0.5,
+      scales:{
+        x:{ 
+          type:'category',
+          labels:xLabels,
+          offset:true,
+          title:{display:true,text:"Encuesta (encuestadora + fecha)"},
+          ticks:{autoSkip:false,maxRotation:45,minRotation:45}
+        },
+        y:{
+          type:'category',
+          labels:yLabels,
+          title:{display:true,text:"Puesto (1 = mejor)"},
+          ticks:{autoSkip:false}  // <--- todos los números del 1 al 29
+        }
+      },
+      plugins:{
+        tooltip:{
+          callbacks:{
+            label: ctx => {
+              const e = encuestasFiltradas[ctx.datasetIndex];
+              const idx = parseInt(ctx.raw.y)-1;
+              return `${e.escanos[idx]} - puesto ${ctx.raw.y}`;
+            }
+          }
+        },
+        legend:{display:false}
+      }
+    }
+  });
+}
+
+// Crear gráficos y recuentos
+crearGrafico(encuestas2025, "escanosChart2025");
+mostrarRecuento(encuestas2025, "recuento2025");
+
+crearGrafico(encuestas, "escanosChartTodos");
+mostrarRecuento(encuestas, "recuentoTodos");
