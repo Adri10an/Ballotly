@@ -1,0 +1,84 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.button {
+    padding: 50px 60px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    background-color: darkblue;
+    border-radius: 5px;
+}
+
+.acoruña, .pontevedra, .lugo, .orense, .galicia {
+    background-size: 120% 100%;
+    background-position: center;
+    padding: 50px 60px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.acoruña {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8f/Bandera_coru%C3%B1a.png');
+}
+
+.pontevedra {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Flag_Pontevedra_Province.svg/500px-Flag_Pontevedra_Province.svg.png');
+}
+
+.lugo {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Flag_of_Lugo_province.svg/960px-Flag_of_Lugo_province.svg.png');
+}
+
+.orense {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Provincia_de_Ourense_-_Bandera.svg/960px-Provincia_de_Ourense_-_Bandera.svg.png');
+}
+
+.galicia {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Galicia.svg');
+}
+
+/* ── Additional styles ── */
+
+/* ── Province labels overlay (Ballotly v5 enhancement) ── */
+.boton-con-texto {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4px;
+}
+.provincia-label-overlay {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.62);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+.container .button {
+    display: block;
+}

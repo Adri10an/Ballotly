@@ -1,0 +1,274 @@
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f8;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden; /* Evita el scroll horizontal */
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Menos espacio entre los botones */
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px; /* Evita márgenes innecesarios */
+}
+
+.boton-con-texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 120px; /* Reducción del tamaño */
+    margin-bottom: 10px; /* Añade algo de espacio entre los botones */
+}
+
+.titulo-boton {
+    font-size: 16px; /* Ajusta el tamaño */
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 6px; /* Reduce el margen inferior */
+    text-align: center;
+}
+
+.button {
+    width: 120px;
+    height: 80px; /* Ajuste del tamaño */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* Definimos un tamaño más adecuado para los botones y ajustamos el tamaño de fondo */
+.ceuta, .melilla, .soria, .teruel, .segovia, .cuenca, .huesca, .palencia, .zamora, .avila, .guadalajara, 
+.albacete, .lleida, .larioja, .lugo, .orense, .caceres, .leon, .alava, .burgos, .salamanca, .valladolid, 
+.jaen, .castellon, .badajoz, .cantabria, .navarra, .huelva, .ciudadreal, .guipuzcoa, .tarragona, .girona, 
+.toledo, .cordoba, .almeria, .pontevedra, .granada, .asturias, .zaragoza, .santacruzdetenerife, .baleares, 
+.vizcaya, .laspalmas, .acoruña, .cadiz, .murcia, .malaga, .alicante, .sevilla, .valencia, .barcelona, .madrid, 
+.espana, .espana2 {
+    background-size: cover; 
+    background-position: center;
+    padding: 40px 50px; /* Ajustamos el padding */
+    border: none;
+    cursor: pointer;
+    font-size: 14px; /* Tamaño de fuente reducido */
+    border-radius: 5px;
+    position: relative;
+    min-width: 100px;
+}
+
+.boton-con-texto {
+    position: relative;
+    display: inline-block;
+}
+
+.titulo-boton {
+    position: absolute;
+    top: -25px; /* Ajusta para un mejor alineamiento */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background: rgba(0, 0, 0, 0.5); /* Fondo translúcido */
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+        .ceuta {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Flag_of_Ceuta.svg/960px-Flag_of_Ceuta.svg.png');
+        }
+        .melilla {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Flag_of_Melilla.svg/960px-Flag_of_Melilla.svg.png');
+        }
+        .soria {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_Soria_province.svg');
+        }
+        .teruel {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Teruel_%28province%29.svg');
+        }
+        .segovia {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/b8/Flag_Segovia_province.svg');
+        }
+        .cuenca {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_Cuenca_Province.svg/960px-Flag_Cuenca_Province.svg.png');
+        }
+        .huesca {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/1f/Flag_of_Huesca_%28province%29.svg');
+        }
+        .palencia {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Bandera_de_Palencia.svg/960px-Bandera_de_Palencia.svg.png?_=20080724064839');
+        }
+        .zamora {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Bandera_de_Zamora.svg/960px-Bandera_de_Zamora.svg.png');
+        }
+        .avila {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bandera_de_la_provincia_de_%C3%81vila.svg/960px-Bandera_de_la_provincia_de_%C3%81vila.svg.png');
+        }
+        .guadalajara {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Bandera_de_la_Provincia_de_Guadalajara.svg/960px-Bandera_de_la_Provincia_de_Guadalajara.svg.png');
+        }
+        .albacete {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Bandera_provincia_Albacete.svg/960px-Bandera_provincia_Albacete.svg.png');
+        }
+        .lleida {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Bandera_de_la_provincia_de_L%C3%A9rida.svg/960px-Bandera_de_la_provincia_de_L%C3%A9rida.svg.png');
+        }
+        .larioja {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Flag_of_La_Rioja_%28with_coat_of_arms%29.svg/960px-Flag_of_La_Rioja_%28with_coat_of_arms%29.svg.png');
+        }
+        .lugo {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Flag_of_Lugo_province.svg/960px-Flag_of_Lugo_province.svg.png');
+        }
+        .orense {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Provincia_de_Ourense_-_Bandera.svg/960px-Provincia_de_Ourense_-_Bandera.svg.png');
+        }
+        .caceres {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/d6/Bandera_de_la_provincia_de_C%C3%A1ceres.png?20081214223440');
+        }
+        .leon {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Bandera_de_Le%C3%B3n.svg/960px-Bandera_de_Le%C3%B3n.svg.png');
+        }
+        .alava {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Flag_of_%C3%81lava.svg/960px-Flag_of_%C3%81lava.svg.png');
+        }
+        .burgos {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Flag_Burgos_Province.svg/960px-Flag_Burgos_Province.svg.png');
+        }
+        .salamanca {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Bandera_de_la_provincia_de_Salamanca.svg/960px-Bandera_de_la_provincia_de_Salamanca.svg.png');
+        }
+        .valladolid {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bandera_de_la_provincia_de_Valladolid.svg/960px-Bandera_de_la_provincia_de_Valladolid.svg.png');
+        }
+        .jaen {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Bandera_de_la_provincia_de_Ja%C3%A9n.svg/960px-Bandera_de_la_provincia_de_Ja%C3%A9n.svg.png');
+        }
+        .castellon {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bandera_de_Castell%C3%B3_de_la_Plana-2.svg/960px-Bandera_de_Castell%C3%B3_de_la_Plana-2.svg.png');
+        }
+        .badajoz {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Provincia_de_Badajoz_-_Bandera.svg/960px-Provincia_de_Badajoz_-_Bandera.svg.png');
+        }
+        .cantabria {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Flag_of_Cantabria.svg/960px-Flag_of_Cantabria.svg.png');
+        }
+        .navarra {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Bandera_de_Navarra.svg/960px-Bandera_de_Navarra.svg.png');
+        }
+        .huelva {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Bandera_de_la_Provincia_De_Huelva.svg/960px-Bandera_de_la_Provincia_De_Huelva.svg.png');
+        }
+        .ciudadreal {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Flag_Ciudad_Real_Province.svg/500px-Flag_Ciudad_Real_Province.svg.png');
+        }
+        .guipuzcoa {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Flag_of_Guip%C3%BAzcoa.svg/960px-Flag_of_Guip%C3%BAzcoa.svg.png');
+        }
+        .tarragona {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Bandera_actual_de_la_provincia_de_Tarragona.svg/960px-Bandera_actual_de_la_provincia_de_Tarragona.svg.png');
+        }
+        .girona {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Bandera_de_Girona.svg/960px-Bandera_de_Girona.svg.png');
+        }
+        .toledo {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Bandera_de_la_provincia_de_Toledo.svg/960px-Bandera_de_la_provincia_de_Toledo.svg.png');
+        }
+        .cordoba {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Provincia_de_C%C3%B3rdoba_-_Bandera.svg/960px-Provincia_de_C%C3%B3rdoba_-_Bandera.svg.png');
+        }
+        .almeria {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Flag_Almer%C3%ADa_Province.svg/960px-Flag_Almer%C3%ADa_Province.svg.png');
+        }
+        .pontevedra {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Flag_Pontevedra_Province.svg/500px-Flag_Pontevedra_Province.svg.png');
+        }
+        .granada {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bandera_de_la_provincia_de_Granada_%28Espa%C3%B1a%29.svg/960px-Bandera_de_la_provincia_de_Granada_%28Espa%C3%B1a%29.svg.png');
+        }
+        .asturias {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_Asturias.svg/960px-Flag_of_Asturias.svg.png');
+        }
+        .zaragoza {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Bandera_de_la_provincia_de_Zaragoza.svg/960px-Bandera_de_la_provincia_de_Zaragoza.svg.png');
+        }
+        .santacruzdetenerife {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Bandera_Provincial_de_Santa_Cruz_de_Tenerife.png/960px-Bandera_Provincial_de_Santa_Cruz_de_Tenerife.png');
+        }
+        .baleares {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Flag_of_the_Balearic_Islands.svg/960px-Flag_of_the_Balearic_Islands.svg.png');
+        }
+        .vizcaya {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Bandera_de_Vizcaya.svg/960px-Bandera_de_Vizcaya.svg.png');
+        }
+        .laspalmas {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Bandera_Provincial_de_Las_Palmas.png/960px-Bandera_Provincial_de_Las_Palmas.png');
+        }
+        .acoruña {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8f/Bandera_coru%C3%B1a.png');
+        }
+        .cadiz {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Flag_C%C3%A1diz_Province.svg/960px-Flag_C%C3%A1diz_Province.svg.png');
+        }
+        .murcia {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_Region_of_Murcia.svg/960px-Flag_of_the_Region_of_Murcia.svg.png');
+        }
+        .malaga {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Flag_M%C3%A1laga_Province.svg/960px-Flag_M%C3%A1laga_Province.svg.png');
+        }
+        .alicante {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bandera_de_la_prov%C3%ADncia_d%27Alacant.svg/960px-Bandera_de_la_prov%C3%ADncia_d%27Alacant.svg.png');
+        }
+        .sevilla {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Flag_of_Diputacion_de_Sevilla_Spain.svg/960px-Flag_of_Diputacion_de_Sevilla_Spain.svg.png?_=20080814113453');
+        }
+        .valencia {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHDltCMJWOwD_TXM0lBRmdTQM0RO9Ol97DFQ&s');
+        }
+        .barcelona {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Flag_of_Barcelona_%28province%29.svg/960px-Flag_of_Barcelona_%28province%29.svg.png');
+        }
+        .madrid {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_the_Community_of_Madrid.svg/960px-Flag_of_the_Community_of_Madrid.svg.png');
+        }
+        .espana {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/89/Bandera_de_Espa%C3%B1a.svg');
+        }
+        .espana2 {
+            background-image: url('https://www.farmaceuticosdesevilla.es/wp-content/uploads/2023/06/votar.jpg');
+        }
+        .boton-con-texto {
+    position: relative;
+    display: inline-block;
+}
+
+.titulo-boton {
+    position: absolute;
+    top: -28px; /* Ajusta esta distancia si quieres más o menos separación */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    background: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+    
