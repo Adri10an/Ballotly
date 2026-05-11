@@ -11,32 +11,32 @@ Explora resultados históricos por comunidad autónoma, provincia, partido y con
 |---|---|
 | 📊 Datos electorales | Mapas y gráficos provinciales por comunidad, generales y europeas |
 | ⏱ Mandatómetro | Duración y análisis de mandatos autonómicos |
+| 🗳️ España Calculadora | Simulador de resultados nacionales |
 | 🗳 Calculadora D'Hondt | Simulador de reparto de escaños |
 | 🏛️ Calc. Amplificada | Calculadora electoral ampliada |
-| 📈 Encuestas | Histórico de encuestas electorales |
-| 🌍 Sistemas electorales | Comparativa de sistemas electorales mundiales |
-| 📅 Calendario electoral | Calendario de elecciones pasadas y futuras |
 | 🗺️ Mapa Electoral | Mapa interactivo de resultados |
+| 📈 Evolución Electoral | Tendencias de voto a lo largo del tiempo |
+| 🏆 Ganador por Provincia | Partido ganador provincia a provincia |
 | 🏆 Ranking Autonómico | Ranking de partidos por comunidad |
 | 🎖️ Ranking por Partidos | Resultados históricos por partido |
 | 🗺️ Ranking por Provincias | Comparativa provincial |
-| 🏆 Ganador por Provincia | Partido ganador provincia a provincia |
-| 📈 Evolución Electoral | Tendencias de voto a lo largo del tiempo |
-| ↕️ Cambio de Voto | Variación de voto entre convocatorias |
-| 📏 Brecha Territorial | Diferencias geográficas en el voto |
-| ⚡ Polarización | Índice de polarización electoral |
+| 📊 Comparativa | Comparativa de resultados entre convocatorias |
 | 🔬 Comparador | Comparativa entre comunidades y partidos |
+| ↕️ Cambio de Voto | Variación de voto entre convocatorias |
+| 🔄 Translación Electoral | Trasvase de votos entre elecciones |
 | ⚖️ Izq vs Der | Análisis del bloque ideológico |
-| 💰 Gasto en Pensiones | Datos de gasto por territorio |
-| 🗺️ Pensiones por Provincia | Distribución provincial de pensiones |
+| ⚡ Polarización | Índice de polarización electoral |
+| 📏 Brecha Territorial | Diferencias geográficas en el voto |
+| 🪞 Ohios Autonómicos | Municipios termómetro de tendencia por comunidad autónoma |
 | 🗣️ Valoración de Líderes | Evolución de la valoración de líderes |
 | 🧑‍🤝‍🧑 Voto Joven y Mayor | Análisis del voto por franja de edad |
-| 🪞 Ohios Autonómicos | Comunidades termómetro de tendencia nacional |
-| 🔄 Translación Electoral | Trasvase de votos entre elecciones |
-| 🗳️ España Calculadora | Simulador de resultados nacionales |
+| 💰 Gasto en Pensiones | Datos de gasto por territorio |
+| 🗺️ Pensiones por Provincia | Distribución provincial de pensiones |
 | 🧪 Tests Políticos | Tests de orientación política |
-| 📊 Comparativa | Comparativa de resultados entre convocatorias |
-| 🔗 Recursos | Enlaces y fuentes de datos electorales |
+| 🔗 Recursos | Enlaces sobre partidos políticos incluyendo páginas webs y redes sociales |
+| 🌍 Sistemas electorales | Comparativa de sistemas electorales mundiales |
+| 📈 Encuestas | Histórico de encuestas electorales |
+| 📅 Calendario electoral | Calendario de elecciones pasadas y futuras + eventos políticos |
 
 ---
 
