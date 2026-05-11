@@ -1,0 +1,93 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.button {
+    padding: 50px 60px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    background-color: darkblue;
+    border-radius: 5px;
+}
+
+/* Botones con imágenes de banderas */
+.elhierro, .fuerteventura, .grancanaria, .lagomera, .lapalma, .lanzarote, .tenerife, .urnaautonomica, .canarias {
+    background-size: 120% 100%;
+    background-position: center;
+    padding: 50px 60px;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    background-blend-mode: multiply;
+}
+
+.elhierro {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Flag_of_El_Hierro_with_CoA.svg/1200px-Flag_of_El_Hierro_with_CoA.svg.png');
+}
+.fuerteventura {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Flag_of_Fuerteventura.svg/1200px-Flag_of_Fuerteventura.svg.png');
+}
+.grancanaria {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_Gran_Canaria.svg');
+}
+.lagomera {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/96/Flag_of_La_Gomera.svg');
+}
+.lapalma {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Flag_of_La_Palma_with_CoA.svg/1200px-Flag_of_La_Palma_with_CoA.svg.png');
+}
+.lanzarote {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Flag_of_Lanzarote.svg/1200px-Flag_of_Lanzarote.svg.png');
+}
+.tenerife {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Flag_of_Tenerife.svg/1200px-Flag_of_Tenerife.svg.png');
+}
+.urnaautonomica {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_the_Canary_Islands_%28simple%29.svg');
+}
+.canarias {
+    background-image: url('https://www.comprarbanderas.es/images/banderas/400/209-canarias_400px.jpg');
+}
+
+/* ── Additional styles ── */
+
+/* ── Province labels overlay (Ballotly v5 enhancement) ── */
+.boton-con-texto {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4px;
+}
+.provincia-label-overlay {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.62);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+.container .button {
+    display: block;
+}

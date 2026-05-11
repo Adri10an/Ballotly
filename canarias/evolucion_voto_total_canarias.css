@@ -1,0 +1,52 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #008B8B;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1rem;
+  color: #666;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  color: #888;
+  font-size: 0.95rem;
+  margin: 0.5rem 0 1.5rem;
+  text-align: center;
+}
+
+canvas {
+  max-width: 950px;
+  width: 100%;
+}
+
+.nota {
+  max-width: 950px;
+  width: 100%;
+  background: #e8f4f8;
+  border-left: 4px solid #008B8B;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 2rem;
+  font-size: 0.85rem;
+  color: #444;
+  border-radius: 4px;
+}
+
+hr {
+  max-width: 950px;
+  width: 100%;
+  border: 1px dashed #ccc;
+  margin: 2rem 0;
+}
